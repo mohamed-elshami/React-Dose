@@ -1,0 +1,8 @@
+{
+  "name": "spa",
+  "order": 0,
+  "enabledWhen": "architecture:spa",
+  "cleanup": {
+    "removeLegacyViteEntry": true
+  }
+}

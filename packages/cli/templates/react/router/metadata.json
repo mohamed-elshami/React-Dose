@@ -1,0 +1,28 @@
+{
+  "name": "router",
+  "order": 1,
+  "enabledWhen": "architecture:router-v7",
+  "dependencies": {
+    "react-router": "^7.0.0",
+    "@react-router/node": "^7.0.0",
+    "isbot": "^5.0.0"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.0.0"
+  },
+  "devDependenciesToRemove": ["@vitejs/plugin-react"],
+  "packageScripts": {
+    "dev": "react-router dev",
+    "build": "react-router build"
+  },
+  "vite": {
+    "replaceReactPlugin": true,
+    "imports": ["import { reactRouter } from \"@react-router/dev/vite\";"],
+    "plugins": ["reactRouter()"],
+    "usePathAlias": true
+  },
+  "cleanup": {
+    "removeLegacyRouterRootFiles": true,
+    "removeLegacyViteEntry": true
+  }
+}

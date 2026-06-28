@@ -1,0 +1,11 @@
+{
+  "name": "zustand",
+  "order": 4,
+  "enabledWhen": "store:zustand",
+  "dependencies": {
+    "zustand": "^5.0.0"
+  },
+  "cleanup": {
+    "cleanupStores": true
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "tsconfig",
+  "order": 0,
+  "enabledWhen": "typescript"
+}

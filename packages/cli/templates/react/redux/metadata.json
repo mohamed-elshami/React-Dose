@@ -1,0 +1,19 @@
+{
+  "name": "redux",
+  "order": 5,
+  "enabledWhen": "store:redux",
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
+    "react-redux": "^9.2.0"
+  },
+  "providerWrapper": {
+    "imports": ["import { ReduxProvider } from \"@/app/providers/redux-provider\";"],
+    "component": "<ReduxProvider>"
+  },
+  "vite": {
+    "usePathAlias": true
+  },
+  "cleanup": {
+    "cleanupStores": true
+  }
+}

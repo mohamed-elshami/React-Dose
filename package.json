@@ -1,0 +1,14 @@
+{
+  "name": "react-dose-ecosystem",
+  "private": true,
+  "description": "React Dose monorepo — CLI, UI design system, templates, and apps",
+  "scripts": {
+    "cli:dev": "pnpm --filter @react-dose/cli dev",
+    "build": "pnpm -r run build",
+    "dev": "pnpm -r --parallel run dev",
+    "lint": "pnpm -r run lint"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

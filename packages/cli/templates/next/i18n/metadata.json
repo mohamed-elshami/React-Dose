@@ -1,0 +1,22 @@
+{
+  "name": "i18n",
+  "order": 1,
+  "enabledWhen": "i18n",
+  "dependencies": {
+    "next-intl": "^4.0.0"
+  },
+  "providerWrapper": {
+    "imports": ["import { NextIntlClientProvider } from 'next-intl';"],
+    "component": "<NextIntlClientProvider locale={locale} messages={messages}>"
+  },
+  "rootProviderTypeImports": {
+    "typescript": "import type { AbstractIntlMessages } from 'next-intl';"
+  },
+  "rootProviderProps": {
+    "typescript": "locale: string; messages: AbstractIntlMessages",
+    "javascript": "locale, messages"
+  },
+  "layoutTarget": "locale",
+  "layoutProviderProps": "locale={locale} messages={messages}",
+  "nextConfig": true
+}

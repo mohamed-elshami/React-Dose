@@ -1,0 +1,22 @@
+{
+  "name": "@react-dose/cli",
+  "version": "1.0.0",
+  "description": "The ultra-modern React Dose CLI to scaffold optimized feature-driven ecosystems.",
+  "type": "module",
+  "main": "./src/index.js",
+  "bin": {
+    "@react-dose": "./src/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "node ./src/index.js"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.7.0",
+    "@react-dose/cli": "link:",
+    "giget": "^1.2.0",
+    "picocolors": "^1.0.0"
+  }
+}
