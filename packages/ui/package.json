@@ -18,8 +18,7 @@
   },
   "scripts": {
     "build": "tsup",
-    "dev": "tsup --watch",
-    "lint": "echo \"lint: pending\""
+  "dev": "tsup --watch"
   },
   "peerDependencies": {
     "react": ">=18",
