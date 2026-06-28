@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./src/index.js",
   "bin": {
-    "@react-dose": "./src/index.js"
+    "react-dose": "./src/index.js"
   },
   "publishConfig": {
     "access": "public"
