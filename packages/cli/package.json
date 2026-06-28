@@ -1,6 +1,6 @@
 {
   "name": "@react-dose/cli",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "The ultra-modern React Dose CLI to scaffold optimized feature-driven ecosystems.",
   "type": "module",
   "main": "./src/index.js",

@@ -1,5 +1,11 @@
 # @react-dose/cli
 
+## 3.0.0
+
+### Major Changes
+
+- da58720: fix
+
 ## 2.0.0
 
 ### Major Changes
