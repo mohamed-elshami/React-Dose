@@ -34,7 +34,7 @@ jobs:
         uses: changesets/action@v1
         with:
           build: pnpm run build
-          publish: pnpm -r publish --access public
+          publish: pnpm -r publish --access public --no-git-checks
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
