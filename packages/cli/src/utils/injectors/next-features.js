@@ -64,10 +64,17 @@ export function resolveSelectedNextFeatures(project) {
 export function mergeFeatureDependencies(
   dependencies,
   devDependencies,
+  devDependenciesToRemove,
   metadata,
 ) {
   Object.assign(dependencies, metadata.dependencies ?? {});
   Object.assign(devDependencies, metadata.devDependencies ?? {});
+
+  for (const dep of metadata.devDependenciesToRemove ?? []) {
+    if (!devDependenciesToRemove.includes(dep)) {
+      devDependenciesToRemove.push(dep);
+    }
+  }
 }
 
 export function copyNextFeatureTemplates(featureName, isTypescript, targetDir) {

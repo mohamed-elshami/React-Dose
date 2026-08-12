@@ -23,6 +23,8 @@
   },
   "cleanup": {
     "removeLegacyRouterRootFiles": true,
-    "removeLegacyViteEntry": true
+    "removeLegacyViteEntry": true,
+    "removeWrongViteConfig": true,
+    "files": ["index.html"]
   }
 }

@@ -2,6 +2,9 @@
   "name": "spa",
   "order": 0,
   "enabledWhen": "architecture:spa",
+  "vite": {
+    "usePathAlias": true
+  },
   "cleanup": {
     "removeLegacyViteEntry": true
   }

@@ -97,17 +97,22 @@ export async function processNextEcosystem(project, targetDir, pkg) {
   const selectedFeatures = resolveSelectedNextFeatures(project);
   const providerMetadata = [];
 
+  copySharedTemplates(project.typescript, targetDir);
+
   for (const { name, metadata } of selectedFeatures) {
     copyNextFeatureTemplates(name, project.typescript, targetDir);
-    mergeFeatureDependencies(dependencies, devDependencies, metadata);
-    applyFeatureMetadataCleanup(targetDir, metadata);
+    mergeFeatureDependencies(
+      dependencies,
+      devDependencies,
+      devDependenciesToRemove,
+      metadata,
+    );
+    applyFeatureMetadataCleanup(targetDir, metadata, project);
 
     if (metadata.providerWrapper) {
       providerMetadata.push(metadata);
     }
   }
-
-  copySharedTemplates(project.typescript, targetDir);
 
   if (!project.tailwind) {
     devDependenciesToRemove.push("tailwindcss", "@tailwindcss/postcss");

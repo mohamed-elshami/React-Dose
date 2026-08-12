@@ -8,6 +8,18 @@ const execPromise = promisify(exec);
 
 const execEnv = { ...process.env, FORCE_COLOR: "1" };
 
+function resolveViteTemplate(project) {
+  if (project.reactCompiler) {
+    return project.typescript ? "react-compiler-ts" : "react-compiler";
+  }
+
+  return project.typescript ? "react-ts" : "react";
+}
+
+function resolveViteLintFlag(project) {
+  return project.viteLinter === "oxlint" ? "--no-eslint" : "--eslint";
+}
+
 function resolveScaffoldPath(projectPath) {
   const resolved = path.resolve(projectPath);
   const relative = path.relative(process.cwd(), resolved);
@@ -37,13 +49,14 @@ export async function downloadOfficialTemplate(project) {
 
       s.stop(pc.green(msg));
     } else {
-      const templateFlag = project.typescript ? "react-ts" : "react";
+      const templateFlag = resolveViteTemplate(project);
+      const lintFlag = resolveViteLintFlag(project);
       const msg = "Cooking up your Vite Core environment... 🥞";
 
       s.start(pc.dim(msg));
 
       await execPromise(
-        `npm create vite@latest "${scaffoldPath}" -- --template ${templateFlag}`,
+        `npm create vite@latest "${scaffoldPath}" -- --template ${templateFlag} ${lintFlag}`,
         { env: execEnv },
       );
 

@@ -24,6 +24,32 @@ const LEGACY_ROUTER_ROOT_FILES = [
 const ROOT_PROVIDER_IMPORT =
   'import { RootProvider } from "@/app/providers/root-provider";';
 
+function resolveSpaAppTemplatePath(isTypescript) {
+  const ext = isTypescript ? "tsx" : "jsx";
+
+  return path.join(
+    REACT_TEMPLATES_DIR,
+    "spa",
+    isTypescript ? "ts" : "js",
+    "src",
+    "app",
+    `App.${ext}`,
+  );
+}
+
+function copySpaAppFromTemplate(targetDir, isTypescript) {
+  const ext = isTypescript ? "tsx" : "jsx";
+  const sourcePath = resolveSpaAppTemplatePath(isTypescript);
+  const destPath = path.join(targetDir, "src", "app", `App.${ext}`);
+
+  if (!fs.existsSync(sourcePath)) {
+    throw new Error(`SPA App template not found: ${sourcePath}`);
+  }
+
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+  fs.copyFileSync(sourcePath, destPath);
+}
+
 export function loadReactFeatureMetadata(featureName) {
   const metadataPath = path.join(
     REACT_TEMPLATES_DIR,
@@ -159,7 +185,7 @@ function deleteFileIfExists(filePath) {
   }
 }
 
-export function applyFeatureMetadataCleanup(targetDir, metadata) {
+export function applyFeatureMetadataCleanup(targetDir, metadata, project) {
   if (metadata.cleanup?.cleanupStores || metadata.cleanupStores) {
     cleanupStoresPluralDirectory(targetDir);
   }
@@ -172,6 +198,13 @@ export function applyFeatureMetadataCleanup(targetDir, metadata) {
 
   for (const relativePath of metadata.cleanup?.files ?? []) {
     deleteFileIfExists(path.join(targetDir, relativePath));
+  }
+
+  if (metadata.cleanup?.removeWrongViteConfig && project) {
+    const wrongConfigExtension = project.typescript
+      ? "vite.config.js"
+      : "vite.config.ts";
+    deleteFileIfExists(path.join(targetDir, wrongConfigExtension));
   }
 }
 
@@ -271,18 +304,11 @@ function ensureSpaAppStructure(targetDir, isTypescript) {
   const srcDir = path.join(targetDir, "src");
   const appDir = path.join(srcDir, "app");
   const appComponentPath = path.join(appDir, `App.${ext}`);
-  const legacyAppPath = path.join(srcDir, `App.${ext}`);
 
   fs.mkdirSync(appDir, { recursive: true });
 
-  if (fs.existsSync(legacyAppPath) && !fs.existsSync(appComponentPath)) {
-    fs.renameSync(legacyAppPath, appComponentPath);
-  } else if (!fs.existsSync(appComponentPath)) {
-    fs.writeFileSync(
-      appComponentPath,
-      "export default function App() {\n  return null;\n}\n",
-      "utf-8",
-    );
+  if (!fs.existsSync(appComponentPath)) {
+    copySpaAppFromTemplate(targetDir, isTypescript);
   }
 
   const mainPath = path.join(appDir, `main.${ext}`);
@@ -365,14 +391,6 @@ export function injectRootProviderIntoViteEntry(targetDir, project) {
 export function finalizeReactPackageManifest(project, pkg, frameworkResult) {
   stripDevDependencies(pkg, frameworkResult.devDependenciesToRemove ?? []);
 
-  if (project.architectureFlavor === "router-v7") {
-    for (const dep of ["@vitejs/plugin-react"]) {
-      if (pkg.devDependencies?.[dep]) {
-        delete pkg.devDependencies[dep];
-      }
-    }
-  }
-
   if (pkg.scripts) {
     for (const [scriptName, scriptValue] of Object.entries(
       frameworkResult.packageScriptPatches ?? {},
@@ -393,22 +411,6 @@ export function finalizeReactPackageManifest(project, pkg, frameworkResult) {
 }
 
 export function finalizeReactProjectArtifacts(project, targetDir, frameworkResult) {
-  if (project.architectureFlavor === "router-v7") {
-    const indexHtmlPath = path.join(targetDir, "index.html");
-    const wrongConfigExtension = project.typescript
-      ? "vite.config.js"
-      : "vite.config.ts";
-    const wrongConfigPath = path.join(targetDir, wrongConfigExtension);
-
-    if (fs.existsSync(indexHtmlPath)) {
-      fs.unlinkSync(indexHtmlPath);
-    }
-
-    if (fs.existsSync(wrongConfigPath)) {
-      fs.unlinkSync(wrongConfigPath);
-    }
-  }
-
   if (project.typescript && frameworkResult.viteConfigData?.useDynamicPathAlias) {
     patchTsconfigAppPathAlias(targetDir);
   }

@@ -25,57 +25,39 @@ export async function injectEcosystemDependencies(project) {
   }
 
   try {
-    const originalLog = console.log;
-    const originalInfo = console.info;
-    const originalWarn = console.warn;
-    console.log = () => {};
-    console.info = () => {};
-    console.warn = () => {};
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
+    const baseDeps = buildBaseEcosystemDependencies(project, pkg.devDependencies);
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    let frameworkDeps = {
+      dependencies: {},
+      devDependencies: {},
+      devDependenciesToRemove: [],
+    };
 
-      const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
-      const baseDeps = buildBaseEcosystemDependencies(
-        project,
-        pkg.devDependencies,
-      );
-
-      let frameworkDeps = {
-        dependencies: {},
-        devDependencies: {},
-        devDependenciesToRemove: [],
-      };
-
-      if (project.framework === "react-core") {
-        frameworkDeps = await processViteEcosystem(project, targetDir, pkg);
-      } else if (project.framework === "next-core") {
-        frameworkDeps = await processNextEcosystem(project, targetDir, pkg);
-      }
-
-      pkg.dependencies = {
-        ...(pkg.dependencies ?? {}),
-        ...baseDeps.dependencies,
-        ...frameworkDeps.dependencies,
-      };
-      pkg.devDependencies = {
-        ...(pkg.devDependencies ?? {}),
-        ...baseDeps.devDependencies,
-        ...frameworkDeps.devDependencies,
-      };
-
-      fs.writeFileSync(
-        packageJsonPath,
-        `${JSON.stringify(sortDependencies(pkg), null, 2)}\n`,
-        "utf-8",
-      );
-
-      s.stop(pc.green(msg));
-    } finally {
-      console.log = originalLog;
-      console.info = originalInfo;
-      console.warn = originalWarn;
+    if (project.framework === "react-core") {
+      frameworkDeps = await processViteEcosystem(project, targetDir, pkg);
+    } else if (project.framework === "next-core") {
+      frameworkDeps = await processNextEcosystem(project, targetDir, pkg);
     }
+
+    pkg.dependencies = {
+      ...(pkg.dependencies ?? {}),
+      ...baseDeps.dependencies,
+      ...frameworkDeps.dependencies,
+    };
+    pkg.devDependencies = {
+      ...(pkg.devDependencies ?? {}),
+      ...baseDeps.devDependencies,
+      ...frameworkDeps.devDependencies,
+    };
+
+    fs.writeFileSync(
+      packageJsonPath,
+      `${JSON.stringify(sortDependencies(pkg), null, 2)}\n`,
+      "utf-8",
+    );
+
+    s.stop(pc.green(msg));
   } catch (error) {
     s.stop(pc.red(msg));
     throw error;

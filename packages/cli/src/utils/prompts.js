@@ -34,9 +34,27 @@ export async function collectProjectPreferences(argumentPath) {
         }
         return Promise.resolve("none");
       },
+      viteLinter: ({ results }) => {
+        if (results.framework === "react-core") {
+          return p.select({
+            message: "Choose your Vite linting setup:",
+            options: [
+              { value: "eslint", label: "ESLint (recommended)" },
+              { value: "oxlint", label: "Oxlint (faster default in Vite)" },
+            ],
+            initialValue: "eslint",
+          });
+        }
+        return Promise.resolve("none");
+      },
       typescript: () =>
         p.confirm({
           message: "Would you like to use TypeScript for type safety?",
+          initialValue: true,
+        }),
+      reactCompiler: () =>
+        p.confirm({
+          message: "Would you like to enable the React Compiler?",
           initialValue: true,
         }),
       store: () =>
@@ -59,15 +77,6 @@ export async function collectProjectPreferences(argumentPath) {
             "Do you need multi-language support (i18n Internationalization)?",
           initialValue: false,
         }),
-      reactCompiler: ({ results }) => {
-        if (results.framework === "next-core") {
-          return p.confirm({
-            message: "Would you like to enable the React Compiler?",
-            initialValue: true,
-          });
-        }
-        return Promise.resolve(false);
-      },
     },
     {
       onCancel: () => {
