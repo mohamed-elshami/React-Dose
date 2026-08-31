@@ -13,8 +13,7 @@
   },
   "entryHydration": {
     "imports": {
-      "spa": ["import \"./index.css\";"],
-      "router-v7": ["import \"@/app/index.css\";"]
+      "spa": ["import \"./index.css\";"]
     }
   }
 }

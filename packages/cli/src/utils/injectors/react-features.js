@@ -5,6 +5,7 @@ import {
   copyDirectoryRecursive,
   cleanupStoresPluralDirectory,
   patchTsconfigAppPathAlias,
+  patchTsconfigPathAlias,
   stripDevDependencies,
 } from "./shared.js";
 import {
@@ -28,6 +29,20 @@ const LEGACY_ROUTER_ROOT_FILES = [
 
 const ROOT_PROVIDER_IMPORT =
   'import { RootProvider } from "@/app/providers/root-provider";';
+
+function isRouterProject(project) {
+  return project.architectureFlavor === "router-v7";
+}
+
+function resolveRouterRootPath(targetDir) {
+  const tsxPath = path.join(targetDir, "src", "app", "root.tsx");
+
+  if (fs.existsSync(tsxPath)) {
+    return tsxPath;
+  }
+
+  return path.join(targetDir, "src", "app", "root.jsx");
+}
 
 function resolveSpaAppTemplatePath(isTypescript) {
   const ext = isTypescript ? "tsx" : "jsx";
@@ -214,10 +229,9 @@ export function applyPostEntryMetadataCleanup(targetDir, project, selectedFeatur
 
 function resolveViteEntryPath(targetDir, project) {
   const ext = project.typescript ? "tsx" : "jsx";
-  const isRouterV7 = project.architectureFlavor === "router-v7";
 
-  return isRouterV7
-    ? path.join(targetDir, "src", "app", `root.${ext}`)
+  return isRouterProject(project)
+    ? resolveRouterRootPath(targetDir)
     : path.join(targetDir, "src", "app", `main.${ext}`);
 }
 
@@ -257,17 +271,19 @@ export function applyFeatureEntryHydration(targetDir, project, metadata) {
   fs.writeFileSync(entryPath, content, "utf-8");
 }
 
-export function ensureRootProvider(targetDir, isTypescript) {
-  const extension = isTypescript ? "tsx" : "jsx";
+export function ensureRootProvider(targetDir, project) {
+  const extension =
+    isRouterProject(project) || project.typescript ? "tsx" : "jsx";
   const providersDir = path.join(targetDir, "src", "app", "providers");
   const rootProviderPath = path.join(providersDir, `root-provider.${extension}`);
 
   fs.mkdirSync(providersDir, { recursive: true });
 
   if (!fs.existsSync(rootProviderPath)) {
-    const content = isTypescript
-      ? `export function RootProvider({ children }: { children: React.ReactNode }) {\n  return <>{children}</>;\n}\n`
-      : `export function RootProvider({ children }) {\n  return <>{children}</>;\n}\n`;
+    const content =
+      !project.typescript && !isRouterProject(project)
+        ? `export function RootProvider({ children }) {\n  return <>{children}</>;\n}\n`
+        : `export function RootProvider({ children }: { children: React.ReactNode }) {\n  return <>{children}</>;\n}\n`;
 
     fs.writeFileSync(rootProviderPath, content, "utf-8");
   }
@@ -325,8 +341,8 @@ createRoot(rootElement).render(
 export function injectRootProviderIntoViteEntry(targetDir, project) {
   const ext = project.typescript ? "tsx" : "jsx";
 
-  if (project.architectureFlavor === "router-v7") {
-    const rootPath = path.join(targetDir, "src", "app", `root.${ext}`);
+  if (isRouterProject(project)) {
+    const rootPath = resolveRouterRootPath(targetDir);
 
     if (!fs.existsSync(rootPath)) {
       throw new Error(`React Router root entry file not found at ${rootPath}`);
@@ -339,16 +355,21 @@ export function injectRootProviderIntoViteEntry(targetDir, project) {
     }
 
     if (!content.includes("<RootProvider>")) {
-      if (!/<Outlet\s*\/>/.test(content)) {
+      if (/return\s+<Outlet\s*\/>/.test(content)) {
+        content = content.replace(
+          /return\s+<Outlet\s*\/>/,
+          "return (\n    <RootProvider>\n      <Outlet />\n    </RootProvider>\n  )",
+        );
+      } else if (/<Outlet\s*\/>/.test(content)) {
+        content = content.replace(
+          /<Outlet\s*\/>/,
+          "<RootProvider>\n          <Outlet />\n        </RootProvider>",
+        );
+      } else {
         throw new Error(
           `Could not inject RootProvider in router root at ${rootPath}: "<Outlet />" marker not found.`,
         );
       }
-
-      content = content.replace(
-        /<Outlet\s*\/>/,
-        "<RootProvider>\n          <Outlet />\n        </RootProvider>",
-      );
     }
 
     fs.writeFileSync(rootPath, content, "utf-8");
@@ -399,7 +420,20 @@ export function finalizeReactPackageManifest(project, pkg, frameworkResult) {
 }
 
 export function finalizeReactProjectArtifacts(project, targetDir, frameworkResult) {
-  if (project.typescript && frameworkResult.viteConfigData?.useDynamicPathAlias) {
+  if (isRouterProject(project) && !project.typescript) {
+    return;
+  }
+
+  if (!project.typescript) {
+    return;
+  }
+
+  if (isRouterProject(project)) {
+    patchTsconfigPathAlias(targetDir);
+    return;
+  }
+
+  if (frameworkResult.viteConfigData?.useDynamicPathAlias) {
     patchTsconfigAppPathAlias(targetDir);
   }
 }

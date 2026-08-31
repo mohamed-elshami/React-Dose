@@ -27,7 +27,7 @@ export async function collectProjectPreferences(argumentPath) {
               { value: "spa", label: "React SPA (Standard Client-Side App)" },
               {
                 value: "router-v7",
-                label: "React Router v7 (Standard Routing & Layouts)",
+                label: "React Router (Framework mode + Vite)",
               },
             ],
           });
@@ -35,7 +35,10 @@ export async function collectProjectPreferences(argumentPath) {
         return Promise.resolve("none");
       },
       viteLinter: ({ results }) => {
-        if (results.framework === "react-core") {
+        if (
+          results.framework === "react-core" &&
+          results.architectureFlavor !== "router-v7"
+        ) {
           return p.select({
             message: "Choose your Vite linting setup:",
             options: [
@@ -47,16 +50,21 @@ export async function collectProjectPreferences(argumentPath) {
         }
         return Promise.resolve("none");
       },
-      typescript: () =>
+      typescript: ({ results }) =>
         p.confirm({
           message: "Would you like to use TypeScript for type safety?",
           initialValue: true,
         }),
-      reactCompiler: () =>
-        p.confirm({
+      reactCompiler: ({ results }) => {
+        if (results.architectureFlavor === "router-v7") {
+          return Promise.resolve(false);
+        }
+
+        return p.confirm({
           message: "Would you like to enable the React Compiler?",
           initialValue: true,
-        }),
+        });
+      },
       store: () =>
         p.select({
           message: "Select State Management Store for your ecosystem:",

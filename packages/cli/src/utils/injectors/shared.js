@@ -14,6 +14,35 @@ function stripJsonComments(json) {
     .replace(/,(\s*[}\]])/g, "$1");
 }
 
+export function patchTsconfigPathAlias(targetDir) {
+  const tsconfigPath = path.join(targetDir, "tsconfig.json");
+
+  if (!fs.existsSync(tsconfigPath)) {
+    return;
+  }
+
+  let content = fs.readFileSync(tsconfigPath, "utf-8");
+  content = content.replace(/\s*"~\/\*":\s*\[\s*"\.\/app\/\*"\s*\],?\r?\n?/g, "");
+
+  const tsconfig = JSON.parse(content);
+  tsconfig.include = Array.from(
+    new Set(["src", ...(tsconfig.include ?? [])]),
+  );
+  tsconfig.compilerOptions = {
+    ...tsconfig.compilerOptions,
+    paths: {
+      ...(tsconfig.compilerOptions?.paths ?? {}),
+      "@/*": ["./src/*"],
+    },
+  };
+
+  fs.writeFileSync(
+    tsconfigPath,
+    `${JSON.stringify(tsconfig, null, 2)}\n`,
+    "utf-8",
+  );
+}
+
 export function patchTsconfigAppPathAlias(targetDir) {
   const tsconfigPath = path.join(targetDir, "tsconfig.app.json");
 
@@ -98,12 +127,24 @@ export function cleanupStoresPluralDirectory(targetDir) {
   }
 }
 
-export function copySharedTemplates(isTypescript, targetDir) {
+export function copySharedTemplates(isTypescript, targetDir, options = {}) {
   const sourceDir = path.join(SHARED_TEMPLATES_DIR, isTypescript ? "ts" : "js");
 
-  if (fs.existsSync(sourceDir)) {
-    copyDirectoryRecursive(sourceDir, targetDir);
+  if (!fs.existsSync(sourceDir)) {
+    return;
   }
+
+  if (options.router) {
+    for (const segment of ["features", "utils"]) {
+      copyDirectoryRecursive(
+        path.join(sourceDir, "src", segment),
+        path.join(targetDir, "src", segment),
+      );
+    }
+    return;
+  }
+
+  copyDirectoryRecursive(sourceDir, targetDir);
 }
 
 export function copyDirectoryRecursive(source, destination) {

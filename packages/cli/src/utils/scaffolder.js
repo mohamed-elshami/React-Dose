@@ -46,6 +46,9 @@ function resolveScaffoldPath(projectPath) {
 export async function downloadOfficialTemplate(project) {
   const s = p.spinner();
   const scaffoldPath = resolveScaffoldPath(project.path);
+  const isRouter =
+    project.framework === "react-core" &&
+    project.architectureFlavor === "router-v7";
 
   try {
     if (project.framework === "next-core") {
@@ -61,6 +64,22 @@ export async function downloadOfficialTemplate(project) {
 
       await execPromise(
         `npx ${createNextApp} "${scaffoldPath}" ${tsFlag} --tailwind false --app --src-dir --import-alias "@/*" --eslint ${project.reactCompiler ? "--react-compiler" : ""} --no-git --skip-install`,
+        { env: execEnv },
+      );
+
+      s.stop(pc.green(msg));
+    } else if (isRouter) {
+      const msg = "Cooking up your React Router environment... 🛣️";
+
+      s.start(pc.dim(msg));
+
+      const createReactRouter = resolvePackageSpec(
+        "create-react-router",
+        scaffoldPins.createReactRouter,
+      );
+
+      await execPromise(
+        `npx ${createReactRouter} "${scaffoldPath}" --yes --no-install --no-git-init --no-agent-skills`,
         { env: execEnv },
       );
 

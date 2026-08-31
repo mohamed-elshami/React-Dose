@@ -1,4 +1,5 @@
 {
   "createVite": "9",
-  "createNextApp": "16"
+  "createNextApp": "16",
+  "createReactRouter": "8"
 }

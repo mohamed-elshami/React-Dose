@@ -2,6 +2,11 @@ import fs from "fs";
 import path from "path";
 import * as p from "@clack/prompts";
 import pc from "picocolors";
+import {
+  cleanReactRouterTemplate,
+  patchReactRouterConfig,
+  relocateRouterAppToSrc,
+} from "./router-cleanup.js";
 
 function safeUnlink(filePath) {
   if (fs.existsSync(filePath)) {
@@ -51,6 +56,12 @@ function cleanNextJsTemplate(targetDir, typescript) {
   );
 }
 
+function cleanReactRouterBoilerplate(targetDir, project) {
+  relocateRouterAppToSrc(targetDir);
+  cleanReactRouterTemplate(targetDir, project);
+  patchReactRouterConfig(targetDir);
+}
+
 export async function cleanDefaultTemplate(project) {
   const s = p.spinner();
   const msg = "Sweeping away the default boilerplate junk... 🧹";
@@ -67,6 +78,8 @@ export async function cleanDefaultTemplate(project) {
   try {
     if (project.framework === "next-core") {
       cleanNextJsTemplate(targetDir, project.typescript);
+    } else if (project.architectureFlavor === "router-v7") {
+      cleanReactRouterBoilerplate(targetDir, project);
     } else {
       cleanViteTemplate(targetDir, project.typescript);
     }

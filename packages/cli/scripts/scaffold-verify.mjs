@@ -69,7 +69,7 @@ const configs = [
       framework: "react-core",
       architectureFlavor: "router-v7",
       typescript: true,
-      viteLinter: "eslint",
+      viteLinter: "none",
       store: "none",
       tailwind: false,
       i18n: false,
@@ -77,10 +77,40 @@ const configs = [
     },
     assert(projectPath, pkg) {
       assertExists(projectPath, "src/app/root.tsx");
+      assertExists(projectPath, "src/app/providers/root-provider.tsx");
       assertExists(projectPath, "src/app/routes/home.tsx");
+      assertExists(projectPath, "src/features/home/index.ts");
+      assertMissing(projectPath, "app");
       assertMissing(projectPath, "index.html");
+      assertMissing(projectPath, "src/app/welcome");
+      assertFileContains(projectPath, "react-router.config.ts", "appDirectory");
       assertFileContains(projectPath, "package.json", "react-router dev");
+      assertNotInDeps(pkg, "tailwindcss");
       assertNotInDeps(pkg, "zustand");
+    },
+  },
+  {
+    name: "verify-vite-router-js",
+    project: {
+      path: path.join(playgroundDir, "verify-vite-router-js"),
+      framework: "react-core",
+      architectureFlavor: "router-v7",
+      typescript: false,
+      viteLinter: "none",
+      store: "none",
+      tailwind: false,
+      i18n: false,
+      reactCompiler: false,
+    },
+    assert(projectPath, pkg) {
+      assertExists(projectPath, "src/app/root.jsx");
+      assertExists(projectPath, "src/app/providers/root-provider.jsx");
+      assertExists(projectPath, "src/features/home/index.js");
+      assertMissing(projectPath, "app");
+      assertFileContains(projectPath, "react-router.config.js", "appDirectory");
+      assertFileContains(projectPath, "tsconfig.json", "\"allowJs\": true");
+      assertNotInDeps(pkg, "tailwindcss");
+      assertNotInDeps(pkg, "typescript");
     },
   },
   {

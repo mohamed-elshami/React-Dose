@@ -35,9 +35,11 @@ Runtime validation lives in `packages/cli/src/utils/features/feature-engine.js` 
 
 React Compiler is configured by the official scaffolder (`create-vite` `react-compiler` / `react-compiler-ts`, or `create-next-app --react-compiler`), not via a feature template.
 
-ESLint is configured by the official scaffolder (`create-vite --eslint` for Vite, `create-next-app --eslint` for Next).
+React Router projects use `create-react-router` (official framework scaffold with Vite). Tailwind is included by default and stripped when the user opts out. Router scaffolds are TypeScript-only.
 
-Official scaffolders are versioned in `packages/cli/src/utils/scaffold-pins.json` (major line, e.g. `vite@9`, `create-next-app@16` = latest within that major). Set `REACT_DOSE_SCAFFOLD_LATEST=1` to canary against `@latest`.
+ESLint is configured by the official scaffolder (`create-vite --eslint` for Vite SPA, `create-next-app --eslint` for Next).
+
+Official scaffolders are versioned in `packages/cli/src/utils/scaffold-pins.json` (major line, e.g. `vite@9`, `create-next-app@16`, `create-react-router@8` = latest within that major). Set `REACT_DOSE_SCAFFOLD_LATEST=1` to canary against `@latest`.
 
 ## Entry hydration (React/Vite)
 
