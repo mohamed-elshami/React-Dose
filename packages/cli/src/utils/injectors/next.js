@@ -87,6 +87,16 @@ function finalizeNextPackageManifest(pkg, frameworkResult) {
   stripDevDependencies(pkg, frameworkResult.devDependenciesToRemove ?? []);
 }
 
+function filterOfficialNextFeatures(selectedFeatures, project) {
+  return selectedFeatures.filter(({ name }) => {
+    if (name === "tailwind" && project.tailwind) {
+      return false;
+    }
+
+    return true;
+  });
+}
+
 /**
  * Central Next.js ecosystem processor — metadata-driven feature orchestration.
  */
@@ -94,7 +104,8 @@ export async function processNextEcosystem(project, targetDir, pkg) {
   const dependencies = {};
   const devDependencies = {};
   const devDependenciesToRemove = [];
-  const selectedFeatures = resolveSelectedNextFeatures(project);
+  let selectedFeatures = resolveSelectedNextFeatures(project);
+  selectedFeatures = filterOfficialNextFeatures(selectedFeatures, project);
   const providerMetadata = [];
 
   copySharedTemplates(project.typescript, targetDir);

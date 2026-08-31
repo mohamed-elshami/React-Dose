@@ -62,8 +62,10 @@ export async function downloadOfficialTemplate(project) {
         scaffoldPins.createNextApp,
       );
 
+      const tailwindFlag = project.tailwind ? "--tailwind" : "--no-tailwind";
+
       await execPromise(
-        `npx ${createNextApp} "${scaffoldPath}" ${tsFlag} --tailwind false --app --src-dir --import-alias "@/*" --eslint ${project.reactCompiler ? "--react-compiler" : ""} --no-git --skip-install`,
+        `npx ${createNextApp} "${scaffoldPath}" ${tsFlag} ${tailwindFlag} --app --src-dir --import-alias "@/*" --eslint ${project.reactCompiler ? "--react-compiler" : ""} --no-git --skip-install`,
         { env: execEnv },
       );
 

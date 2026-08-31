@@ -35,7 +35,9 @@ function cleanViteTemplate(targetDir, typescript) {
   );
 }
 
-function cleanNextJsTemplate(targetDir, typescript) {
+function cleanNextJsTemplate(targetDir, project) {
+  const typescript = project.typescript;
+
   for (const svg of [
     "file.svg",
     "globe.svg",
@@ -47,7 +49,9 @@ function cleanNextJsTemplate(targetDir, typescript) {
   }
   safeUnlink(path.join(targetDir, "src", "app", "favicon.ico"));
 
-  safeWrite(path.join(targetDir, "src", "app", "globals.css"), "");
+  if (!project.tailwind) {
+    safeWrite(path.join(targetDir, "src", "app", "globals.css"), "");
+  }
 
   const pageFile = typescript ? "page.tsx" : "page.jsx";
   safeWrite(
@@ -77,7 +81,7 @@ export async function cleanDefaultTemplate(project) {
 
   try {
     if (project.framework === "next-core") {
-      cleanNextJsTemplate(targetDir, project.typescript);
+      cleanNextJsTemplate(targetDir, project);
     } else if (project.architectureFlavor === "router-v7") {
       cleanReactRouterBoilerplate(targetDir, project);
     } else {
