@@ -4,6 +4,7 @@
   "description": "React Dose monorepo — CLI, UI design system, templates, and apps",
   "scripts": {
     "cli:dev": "pnpm --filter @react-dose/cli dev",
+    "cli:verify": "node packages/cli/scripts/scaffold-verify.mjs",
     "build": "pnpm -r run build",
     "dev": "pnpm -r --parallel run dev",
     "lint": "pnpm -r run lint"

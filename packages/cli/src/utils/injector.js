@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import * as p from "@clack/prompts";
 import pc from "picocolors";
 import {
@@ -8,6 +9,21 @@ import {
 } from "./injectors/shared.js";
 import { processViteEcosystem } from "./injectors/vite.js";
 import { processNextEcosystem } from "./injectors/next.js";
+
+const pinsPath = fileURLToPath(new URL("./scaffold-pins.json", import.meta.url));
+const scaffoldPins = JSON.parse(fs.readFileSync(pinsPath, "utf-8"));
+
+function repairNextOfficialVersions(pkg) {
+  const nextRange = `^${scaffoldPins.createNextApp}.0.0`;
+
+  if (pkg.dependencies?.next) {
+    pkg.dependencies.next = nextRange;
+  }
+
+  if (pkg.devDependencies?.["eslint-config-next"]) {
+    pkg.devDependencies["eslint-config-next"] = nextRange;
+  }
+}
 
 export async function injectEcosystemDependencies(project) {
   const s = p.spinner();
@@ -38,6 +54,7 @@ export async function injectEcosystemDependencies(project) {
       frameworkDeps = await processViteEcosystem(project, targetDir, pkg);
     } else if (project.framework === "next-core") {
       frameworkDeps = await processNextEcosystem(project, targetDir, pkg);
+      repairNextOfficialVersions(pkg);
     }
 
     pkg.dependencies = {
