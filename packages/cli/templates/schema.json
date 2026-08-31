@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://react-dose.dev/schemas/feature-metadata.json",
+  "title": "React Dose feature metadata",
+  "type": "object",
+  "required": ["name"],
+  "additionalProperties": false,
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "order": { "type": "number" },
+    "enabledWhen": {
+      "type": "string",
+      "description": "always | typescript | i18n | tailwind | reactCompiler | store:* | architecture:*"
+    },
+    "dependencies": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "devDependencies": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "devDependenciesToRemove": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packageScripts": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "providerWrapper": {
+      "type": "object",
+      "required": ["component"],
+      "properties": {
+        "imports": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "import": { "type": "string" },
+        "component": { "type": "string" }
+      }
+    },
+    "rootProviderTypeImports": { "type": "object" },
+    "rootProviderProps": { "type": "object" },
+    "layoutTarget": { "type": "string" },
+    "layoutProviderProps": { "type": "string" },
+    "vite": { "type": "object" },
+    "entryHydration": { "type": "object" },
+    "cleanup": { "type": "object" },
+    "cleanupStores": { "type": "boolean" },
+    "nextConfig": { "type": "boolean" }
+  }
+}

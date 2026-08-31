@@ -7,6 +7,11 @@ import {
   patchTsconfigAppPathAlias,
   stripDevDependencies,
 } from "./shared.js";
+import {
+  isFeatureEnabled,
+  validateFeatureMetadata,
+} from "../features/feature-engine.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -61,37 +66,8 @@ export function loadReactFeatureMetadata(featureName) {
     throw new Error(`Feature metadata not found: ${metadataPath}`);
   }
 
-  return JSON.parse(fs.readFileSync(metadataPath, "utf-8"));
-}
-
-function isFeatureEnabled(project, metadata) {
-  const when = metadata.enabledWhen;
-
-  if (!when || when === "always") {
-    return true;
-  }
-
-  if (when === "typescript") {
-    return Boolean(project.typescript);
-  }
-
-  if (when === "i18n") {
-    return Boolean(project.i18n);
-  }
-
-  if (when === "tailwind") {
-    return Boolean(project.tailwind);
-  }
-
-  if (when.startsWith("store:")) {
-    return project.store === when.slice("store:".length);
-  }
-
-  if (when.startsWith("architecture:")) {
-    return project.architectureFlavor === when.slice("architecture:".length);
-  }
-
-  return false;
+  const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf-8"));
+  return validateFeatureMetadata(metadata, metadataPath);
 }
 
 export function resolveSelectedReactFeatures(project) {
@@ -363,6 +339,12 @@ export function injectRootProviderIntoViteEntry(targetDir, project) {
     }
 
     if (!content.includes("<RootProvider>")) {
+      if (!/<Outlet\s*\/>/.test(content)) {
+        throw new Error(
+          `Could not inject RootProvider in router root at ${rootPath}: "<Outlet />" marker not found.`,
+        );
+      }
+
       content = content.replace(
         /<Outlet\s*\/>/,
         "<RootProvider>\n          <Outlet />\n        </RootProvider>",
@@ -379,6 +361,12 @@ export function injectRootProviderIntoViteEntry(targetDir, project) {
   let content = fs.readFileSync(mainPath, "utf-8");
 
   if (!content.includes(ROOT_PROVIDER_IMPORT)) {
+    if (!content.includes('import { createRoot } from "react-dom/client";')) {
+      throw new Error(
+        `Could not inject RootProvider import in SPA entry at ${mainPath}: createRoot import marker not found.`,
+      );
+    }
+
     content = content.replace(
       'import { createRoot } from "react-dom/client";',
       `import { createRoot } from "react-dom/client";\n${ROOT_PROVIDER_IMPORT}`,

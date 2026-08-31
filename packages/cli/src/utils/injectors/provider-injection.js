@@ -125,6 +125,12 @@ function wrapChildrenInProvider(content, openTag, closeTag) {
     return content;
   }
 
+  if (!content.includes("{children}")) {
+    throw new Error(
+      `Could not inject provider ${openTag}: "{children}" marker not found in root provider.`,
+    );
+  }
+
   return content.replace(
     /\{children\}/,
     `${openTag}\n      {children}\n    ${closeTag}`,

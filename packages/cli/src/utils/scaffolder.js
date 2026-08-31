@@ -1,12 +1,24 @@
 import { exec } from "child_process";
 import { promisify } from "util";
+import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import * as p from "@clack/prompts";
 import pc from "picocolors";
 
 const execPromise = promisify(exec);
-
 const execEnv = { ...process.env, FORCE_COLOR: "1" };
+
+const pinsPath = fileURLToPath(new URL("./scaffold-pins.json", import.meta.url));
+const scaffoldPins = JSON.parse(fs.readFileSync(pinsPath, "utf-8"));
+
+function resolvePackageSpec(packageName, pinnedVersion) {
+  if (process.env.REACT_DOSE_SCAFFOLD_LATEST === "1") {
+    return `${packageName}@latest`;
+  }
+
+  return `${packageName}@${pinnedVersion}`;
+}
 
 function resolveViteTemplate(project) {
   if (project.reactCompiler) {
@@ -42,8 +54,13 @@ export async function downloadOfficialTemplate(project) {
 
       s.start(pc.dim(msg));
 
+      const createNextApp = resolvePackageSpec(
+        "create-next-app",
+        scaffoldPins.createNextApp,
+      );
+
       await execPromise(
-        `npx create-next-app@latest "${scaffoldPath}" ${tsFlag} --tailwind false --app --src-dir --import-alias "@/*" --eslint ${project.reactCompiler ? "--react-compiler" : ""} --no-git --skip-install`,
+        `npx ${createNextApp} "${scaffoldPath}" ${tsFlag} --tailwind false --app --src-dir --import-alias "@/*" --eslint ${project.reactCompiler ? "--react-compiler" : ""} --no-git --skip-install`,
         { env: execEnv },
       );
 
@@ -55,8 +72,10 @@ export async function downloadOfficialTemplate(project) {
 
       s.start(pc.dim(msg));
 
+      const createVite = resolvePackageSpec("vite", scaffoldPins.createVite);
+
       await execPromise(
-        `npm create vite@latest "${scaffoldPath}" -- --template ${templateFlag} ${lintFlag}`,
+        `npm create ${createVite} "${scaffoldPath}" -- --template ${templateFlag} ${lintFlag}`,
         { env: execEnv },
       );
 

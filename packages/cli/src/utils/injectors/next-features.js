@@ -2,6 +2,10 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { copyDirectoryRecursive } from "./shared.js";
+import {
+  isFeatureEnabled,
+  validateFeatureMetadata,
+} from "../features/feature-engine.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,33 +19,12 @@ export function loadNextFeatureMetadata(featureName) {
     throw new Error(`Feature metadata not found: ${metadataPath}`);
   }
 
-  return JSON.parse(fs.readFileSync(metadataPath, "utf-8"));
+  const metadata = JSON.parse(fs.readFileSync(metadataPath, "utf-8"));
+  return validateFeatureMetadata(metadata, metadataPath);
 }
 
 export function resolveNextFeatureSourceDir(featureName, isTypescript) {
   return path.join(NEXT_TEMPLATES_DIR, featureName, isTypescript ? "ts" : "js");
-}
-
-function isFeatureEnabled(project, metadata) {
-  const when = metadata.enabledWhen;
-
-  if (!when || when === "always") {
-    return true;
-  }
-
-  if (when === "i18n") {
-    return Boolean(project.i18n);
-  }
-
-  if (when === "tailwind") {
-    return Boolean(project.tailwind);
-  }
-
-  if (when.startsWith("store:")) {
-    return project.store === when.slice("store:".length);
-  }
-
-  return false;
 }
 
 export function discoverNextFeatureNames() {
@@ -188,6 +171,12 @@ export function injectRootProviderIntoLayout(
   const providerOpen = layoutProps
     ? `<RootProvider ${layoutProps}>`
     : "<RootProvider>";
+
+  if (!/<body([^>]*)>\s*\{children\}\s*<\/body>/.test(content)) {
+    throw new Error(
+      `Could not inject RootProvider into layout at ${layoutPath}: expected "<body>{children}</body>" structure was not found.`,
+    );
+  }
 
   content = content.replace(
     /<body([^>]*)>\s*\{children\}\s*<\/body>/,

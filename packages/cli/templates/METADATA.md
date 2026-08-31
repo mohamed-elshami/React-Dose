@@ -2,6 +2,8 @@
 
 Each feature folder under `templates/react/` or `templates/next/` includes a `metadata.json` plus `ts/` and `js/` template trees.
 
+Runtime validation lives in `packages/cli/src/utils/features/feature-engine.js` (shared by React + Next). Reference schema: `templates/schema.json`.
+
 ## Core fields
 
 | Field | Description |
@@ -34,6 +36,8 @@ Each feature folder under `templates/react/` or `templates/next/` includes a `me
 React Compiler is configured by the official scaffolder (`create-vite` `react-compiler` / `react-compiler-ts`, or `create-next-app --react-compiler`), not via a feature template.
 
 ESLint is configured by the official scaffolder (`create-vite --eslint` for Vite, `create-next-app --eslint` for Next).
+
+Official scaffolders are versioned in `packages/cli/src/utils/scaffold-pins.json` (major line, e.g. `vite@9`, `create-next-app@16` = latest within that major). Set `REACT_DOSE_SCAFFOLD_LATEST=1` to canary against `@latest`.
 
 ## Entry hydration (React/Vite)
 
