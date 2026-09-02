@@ -1,5 +1,5 @@
 {
-  "name": "@react-dose/cli",
+  "name": "create-react-dose",
   "version": "1.0.0",
   "description": "The ultra-modern Create React Dose CLI to scaffold optimized feature-driven ecosystems.",
   "type": "module",

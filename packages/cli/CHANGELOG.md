@@ -1,4 +1,4 @@
-# @react-dose/cli
+# create-react-dose
 
 ## 3.0.0
 
