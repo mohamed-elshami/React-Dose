@@ -59,6 +59,8 @@ const configs = [
     assert(projectPath, pkg) {
       assertExists(projectPath, "src/features/home/index.ts");
       assertExists(projectPath, "src/app/App.tsx");
+      assertExists(projectPath, "src/features/home/CreatorLinks.tsx");
+      assertExists(projectPath, "src/features/home/creatorLinks.data.ts");
       assertMissing(projectPath, "src/app/page.tsx");
       assertMissing(projectPath, "src/app/page.jsx");
       assertExists(projectPath, "eslint.config.js");

@@ -1,31 +1,4 @@
-type SocialIconName = "github" | "linkedin" | "portfolio" | "youtube";
-
-export const CREATOR_LINKS: Array<{
-  label: string;
-  href: string;
-  icon: SocialIconName;
-}> = [
-  {
-    label: "GitHub",
-    href: "https://github.com/mohamed-elshami",
-    icon: "github",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/mohamed-samir-dev/",
-    icon: "linkedin",
-  },
-  {
-    label: "Portfolio",
-    href: "https://mohamed-elshami-dev.vercel.app/",
-    icon: "portfolio",
-  },
-  {
-    label: "YouTube",
-    href: "https://www.youtube.com/@Fekra-2025",
-    icon: "youtube",
-  },
-];
+import { CREATOR_LINKS, type SocialIconName } from "./creatorLinks.data";
 
 function SocialIcon({ name }: { name: SocialIconName }) {
   if (name === "github") {

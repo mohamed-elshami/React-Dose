@@ -147,17 +147,32 @@ export function copyLandingTemplate(project, targetDir) {
   safeUnlink(path.join(homeDir, "assets", "react-dose.jpg"));
   fs.copyFileSync(LOGO_SOURCE, path.join(homeDir, "assets", "react-dose.webp"));
 
-  const creatorLinksFile = project.typescript ? "CreatorLinks.tsx" : "CreatorLinks.jsx";
-  const creatorLinksSource = path.join(LANDING_DIR, "_shared", creatorLinksFile);
+  const creatorLinksDataFile = project.typescript
+    ? "creatorLinks.data.ts"
+    : "creatorLinks.data.js";
+  const creatorLinksComponentFile = project.typescript
+    ? "CreatorLinks.tsx"
+    : "CreatorLinks.jsx";
+
   for (const legacyName of [
     "creator-links.jsx",
     "creator-links.tsx",
     "CreatorLinks.jsx",
     "CreatorLinks.tsx",
+    "creatorLinks.data.js",
+    "creatorLinks.data.ts",
   ]) {
     safeUnlink(path.join(homeDir, legacyName));
   }
-  fs.copyFileSync(creatorLinksSource, path.join(homeDir, creatorLinksFile));
+
+  fs.copyFileSync(
+    path.join(LANDING_DIR, "_shared", creatorLinksDataFile),
+    path.join(homeDir, creatorLinksDataFile),
+  );
+  fs.copyFileSync(
+    path.join(LANDING_DIR, "_shared", creatorLinksComponentFile),
+    path.join(homeDir, creatorLinksComponentFile),
+  );
 
   fs.writeFileSync(path.join(homeDir, "home.css"), buildHomeStyles(project), "utf-8");
   copyBrandFavicon(project, targetDir);
