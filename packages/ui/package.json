@@ -1,5 +1,6 @@
 {
   "name": "@react-dose/ui",
+  "private": true,
   "version": "1.0.0",
   "description": "React Dose design system — headless components and GSAP animations",
   "type": "module",

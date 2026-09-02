@@ -1,21 +1,56 @@
 {
   "name": "create-react-dose",
   "version": "1.0.0",
-  "description": "The ultra-modern Create React Dose CLI to scaffold optimized feature-driven ecosystems.",
+  "description": "Scaffold feature-first React apps on top of Vite, Next.js, and React Router — official tooling first, scalable architecture second.",
+  "license": "MIT",
+  "author": "Mohamed Samir Elshami (https://github.com/mohamed-elshami)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamed-elshami/react-dose-ecosystem.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/mohamed-elshami/react-dose-ecosystem/issues"
+  },
+  "homepage": "https://github.com/mohamed-elshami/react-dose-ecosystem/tree/main/packages/cli#readme",
+  "keywords": [
+    "react",
+    "vite",
+    "nextjs",
+    "next",
+    "react-router",
+    "cli",
+    "scaffold",
+    "create-react-dose",
+    "feature-driven",
+    "typescript",
+    "tailwindcss"
+  ],
   "type": "module",
   "main": "./src/index.js",
   "bin": {
     "create-react-dose": "./src/index.js"
   },
+  "files": [
+    "src",
+    "templates",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "dev": "node ./src/index.js"
+    "dev": "node ./src/index.js",
+    "prepublishOnly": "node ./scripts/validate-package.mjs",
+    "pack:check": "npm pack --dry-run"
   },
   "dependencies": {
     "@clack/prompts": "^0.7.0",
-    "giget": "^1.2.0",
     "picocolors": "^1.0.0"
   }
 }
