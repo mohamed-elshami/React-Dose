@@ -124,13 +124,22 @@ export function copyLandingTemplate(project, targetDir) {
     path.join(homeDir, "pages"),
   );
 
+  safeUnlink(path.join(homeDir, "pages", "page.tsx"));
+  safeUnlink(path.join(homeDir, "pages", "page.jsx"));
+
   fs.mkdirSync(path.join(homeDir, "assets"), { recursive: true });
   safeUnlink(path.join(homeDir, "assets", "react-dose.jpg"));
   fs.copyFileSync(LOGO_SOURCE, path.join(homeDir, "assets", "react-dose.webp"));
 
+  const creatorLinksExt = project.typescript ? "tsx" : "jsx";
+  const creatorLinksSource = project.typescript
+    ? path.join(LANDING_DIR, "_shared", "creator-links.tsx")
+    : path.join(LANDING_DIR, "_shared", "creator-links.jsx");
+  safeUnlink(path.join(homeDir, "creator-links.jsx"));
+  safeUnlink(path.join(homeDir, "creator-links.tsx"));
   fs.copyFileSync(
-    path.join(LANDING_DIR, "_shared", "creator-links.jsx"),
-    path.join(homeDir, "creator-links.jsx"),
+    creatorLinksSource,
+    path.join(homeDir, `creator-links.${creatorLinksExt}`),
   );
 
   fs.writeFileSync(path.join(homeDir, "home.css"), buildHomeStyles(project), "utf-8");

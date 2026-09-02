@@ -1,3 +1,3 @@
-export * from "./pages/page";
-export { default as HomePage } from "./pages/page";
+export * from "./pages/HomePage";
+export { default as HomePage } from "./pages/HomePage";
 export * from "./constants";

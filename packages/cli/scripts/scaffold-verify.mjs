@@ -34,6 +34,8 @@ const configs = [
       assertExists(projectPath, "src/features/home/index.ts");
       assertExists(projectPath, "src/app/providers/root-provider.tsx");
       assertExists(projectPath, "src/app/main.tsx");
+      assertMissing(projectPath, "src/app/page.tsx");
+      assertMissing(projectPath, "src/app/page.jsx");
       assertExists(projectPath, "eslint.config.js");
       assertMissing(projectPath, ".oxlintrc.json");
       assertFileContains(projectPath, "vite.config.ts", "reactCompilerPreset");
@@ -57,6 +59,8 @@ const configs = [
     assert(projectPath, pkg) {
       assertExists(projectPath, "src/features/home/index.ts");
       assertExists(projectPath, "src/app/App.tsx");
+      assertMissing(projectPath, "src/app/page.tsx");
+      assertMissing(projectPath, "src/app/page.jsx");
       assertExists(projectPath, "eslint.config.js");
       assertMissing(projectPath, ".oxlintrc.json");
       assertNotInDeps(pkg, "zustand");

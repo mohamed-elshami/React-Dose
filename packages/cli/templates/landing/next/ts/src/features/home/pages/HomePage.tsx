@@ -1,13 +1,13 @@
 import "../home.css";
 import logo from "../assets/react-dose.webp";
-import { CreatorLinks } from "../creator-links.jsx";
+import { CreatorLinks } from "../creator-links";
 
 const stackPaths = [
   {
     label: "app",
     title: "App shell",
     path: "src/app/",
-    description: "Routes, providers, root layout, and global styles.",
+    description: "Layouts, pages, providers, and global styles for Next.js.",
   },
   {
     label: "features",
@@ -24,9 +24,8 @@ const stackPaths = [
 ];
 
 const docLinks = [
-  { href: "https://vite.dev", label: "Vite docs", primary: true },
+  { href: "https://nextjs.org/docs", label: "Next.js docs", primary: true },
   { href: "https://react.dev", label: "React docs" },
-  { href: "https://reactrouter.com", label: "React Router" },
 ];
 
 export default function HomePage() {
@@ -36,7 +35,7 @@ export default function HomePage() {
         <div className="flex shrink-0 flex-col items-center justify-center gap-6">
           <div className="rd-logo-ring">
             <img
-              src={logo}
+              src={logo.src}
               alt="React Dose logo"
               className="h-48 w-48 rounded-full object-cover lg:h-52 lg:w-52"
             />
@@ -46,7 +45,7 @@ export default function HomePage() {
 
         <div className="flex max-w-2xl flex-col items-center text-center lg:items-start lg:text-left">
           <span className="mb-5 inline-block rounded-full border border-cyan-400/30 bg-black/60 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-            Vite Ecosystem
+            Next.js App Router
           </span>
 
           <h1 className="text-5xl font-bold tracking-tight lg:text-6xl">
@@ -92,7 +91,7 @@ export default function HomePage() {
           <p className="mt-10 text-2xs-footer text-zinc-500">
             Edit{" "}
             <code className="font-mono text-cyan-400/80">
-              src/features/home/pages/page.jsx
+              src/features/home/pages/HomePage.tsx
             </code>
           </p>
         </div>

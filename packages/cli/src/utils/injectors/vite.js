@@ -97,6 +97,7 @@ function filterRouterFeatures(selectedFeatures, project) {
  */
 export async function processViteEcosystem(project, targetDir, pkg) {
   const isRouter = project.architectureFlavor === "router-v7";
+  const isSpa = project.architectureFlavor === "spa";
   const dependencies = {};
   const devDependencies = {};
   const devDependenciesToRemove = [];
@@ -114,7 +115,7 @@ export async function processViteEcosystem(project, targetDir, pkg) {
   selectedFeatures = filterRouterFeatures(selectedFeatures, project);
   const providerMetadata = [];
 
-  copySharedTemplates(project.typescript, targetDir, { router: isRouter });
+  copySharedTemplates(project.typescript, targetDir, { router: isRouter, spa: isSpa });
   copyLandingTemplate(project, targetDir);
 
   for (const { name, metadata } of selectedFeatures) {

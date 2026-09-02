@@ -134,7 +134,9 @@ export function copySharedTemplates(isTypescript, targetDir, options = {}) {
     return;
   }
 
-  if (options.router) {
+  const skipAppShell = options.router || options.spa;
+
+  if (skipAppShell) {
     for (const segment of ["features", "utils"]) {
       copyDirectoryRecursive(
         path.join(sourceDir, "src", segment),

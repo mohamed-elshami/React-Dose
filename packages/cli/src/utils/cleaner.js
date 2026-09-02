@@ -27,6 +27,8 @@ function cleanViteTemplate(targetDir, typescript) {
   }
   safeUnlink(path.join(targetDir, "src", "App.css"));
   safeWrite(path.join(targetDir, "src", "index.css"), "");
+  safeUnlink(path.join(targetDir, "src", "app", "page.tsx"));
+  safeUnlink(path.join(targetDir, "src", "app", "page.jsx"));
 
   const appFile = typescript ? "App.tsx" : "App.jsx";
   safeWrite(
