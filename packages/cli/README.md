@@ -1,6 +1,25 @@
-# create-react-dose
+<p align="center">
+  <img src="./assets/react-dose.png" alt="React Dose" width="180" height="180" style="border-radius: 9999px; object-fit: cover;" />
+</p>
 
-**React Dose CLI** — a feature-first scaffolding toolchain for React applications. It does not reinvent Vite, Next.js, or React Router — it **builds on top of them** with a disciplined architecture that stays scalable as your product grows.
+<h1 align="center">create-react-dose</h1>
+
+<p align="center">
+  <strong>React Dose CLI</strong> — a feature-first scaffolding toolchain for React applications.<br />
+  It does not reinvent Vite, Next.js, or React Router — it <strong>builds on top of them</strong> with a disciplined architecture that stays scalable as your product grows.
+</p>
+
+<p align="center">
+  Created and owned by <a href="https://github.com/mohamed-elshami"><strong>Mohamed Samir Elshami</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/mohamed-elshami">GitHub</a>
+  &nbsp;·&nbsp;
+  <a href="https://www.linkedin.com/in/mohamed-samir-dev/">LinkedIn</a>
+  &nbsp;·&nbsp;
+  <a href="https://mohamed-elshami-dev.vercel.app/">Portfolio</a>
+  &nbsp;·&nbsp;
+  <a href="https://www.youtube.com/@Fekra-2025">YouTube</a>
+</p>
 
 ```bash
 npx create-react-dose@latest
@@ -280,6 +299,20 @@ React Dose lives in the [react-dose-ecosystem](https://github.com/mohamed-elsham
 - Feature metadata: `packages/cli/templates/METADATA.md`
 
 Issues and PRs welcome. Run `pnpm cli:verify` before submitting scaffold-related changes.
+
+---
+
+## Author
+
+**create-react-dose** is created, owned, and maintained by **[Mohamed Samir Elshami](https://github.com/mohamed-elshami)**.
+
+- **Owner:** [Mohamed Samir Elshami](https://github.com/mohamed-elshami)
+- **GitHub:** [github.com/mohamed-elshami](https://github.com/mohamed-elshami)
+- **LinkedIn:** [linkedin.com/in/mohamed-samir-dev](https://www.linkedin.com/in/mohamed-samir-dev/)
+- **Portfolio:** [mohamed-elshami-dev.vercel](https://mohamed-elshami-dev.vercel.app/)
+- **YouTube:** [youtube.com/@Fekra-2025](https://www.youtube.com/@Fekra-2025)
+
+Issues, ideas, and PRs are welcome in the [React Dose repository](https://github.com/mohamed-elshami/react-dose-ecosystem).
 
 ---
 

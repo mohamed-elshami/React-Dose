@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Scaffold feature-first React apps on top of Vite, Next.js, and React Router — official tooling first, scalable architecture second.",
   "license": "MIT",
-  "author": "Mohamed Samir Elshami (https://github.com/mohamed-elshami)",
+  "author": {
+    "name": "Mohamed Samir Elshami",
+    "url": "https://github.com/mohamed-elshami"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mohamed-elshami/react-dose-ecosystem.git",
@@ -34,6 +37,7 @@
   "files": [
     "src",
     "templates",
+    "assets",
     "README.md",
     "CHANGELOG.md"
   ],
