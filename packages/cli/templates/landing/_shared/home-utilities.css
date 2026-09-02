@@ -1,0 +1,379 @@
+/* Tailwind-like utilities for HomePage when Tailwind is not installed. Scoped under .rd-home */
+
+.rd-home.rd-hero-screen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rd-home.min-h-screen {
+  min-height: 100vh;
+}
+
+.rd-home.h-screen {
+  height: 100vh;
+}
+
+.rd-home.h-full {
+  height: 100%;
+}
+
+.rd-home.overflow-hidden {
+  overflow: hidden;
+}
+
+.rd-home.bg-black {
+  background-color: #000;
+}
+
+.rd-home.text-white {
+  color: #fff;
+}
+
+.rd-home .relative {
+  position: relative;
+}
+
+.rd-home .z-10 {
+  z-index: 10;
+}
+
+.rd-home .mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.rd-home .flex {
+  display: flex;
+}
+
+.rd-home .w-full {
+  width: 100%;
+}
+
+.rd-home .max-w-6xl {
+  max-width: 72rem;
+}
+
+.rd-home .max-w-2xl {
+  max-width: 42rem;
+}
+
+.rd-home .mt-1 {
+  margin-top: 0.25rem;
+}
+
+.rd-home .flex-col {
+  flex-direction: column;
+}
+
+.rd-home .items-center {
+  align-items: center;
+}
+
+.rd-home .justify-center {
+  justify-content: center;
+}
+
+.rd-home .gap-6 {
+  gap: 1.5rem;
+}
+
+.rd-home .gap-10 {
+  gap: 2.5rem;
+}
+
+.rd-home .gap-3 {
+  gap: 0.75rem;
+}
+
+.rd-home .gap-4 {
+  gap: 1rem;
+}
+
+.rd-home .px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.rd-home .shrink-0 {
+  flex-shrink: 0;
+}
+
+.rd-home .h-48 {
+  height: 12rem;
+}
+
+.rd-home .w-48 {
+  width: 12rem;
+}
+
+.rd-home .rounded-full {
+  border-radius: 9999px;
+}
+
+.rd-home .object-cover {
+  object-fit: cover;
+}
+
+.rd-home .text-center {
+  text-align: center;
+}
+
+.rd-home .inline-block {
+  display: inline-block;
+}
+
+.rd-home .mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.rd-home .border {
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(34 211 238 / 0.25);
+}
+
+.rd-home .border-cyan-400\/30 {
+  border-color: rgb(34 211 238 / 0.3);
+}
+
+.rd-home .bg-black\/60 {
+  background-color: rgb(0 0 0 / 0.6);
+}
+
+.rd-home .px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.rd-home .py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.rd-home .text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.rd-home .font-semibold {
+  font-weight: 600;
+}
+
+.rd-home .uppercase {
+  text-transform: uppercase;
+}
+
+.rd-home .tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.rd-home .text-cyan-300 {
+  color: #67e8f9;
+}
+
+.rd-home .text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.rd-home .font-bold {
+  font-weight: 700;
+}
+
+.rd-home .tracking-tight {
+  letter-spacing: -0.025em;
+}
+
+.rd-home .text-white {
+  color: #fff;
+}
+
+.rd-home .text-cyan-400 {
+  color: #22d3ee;
+}
+
+.rd-home .mt-4 {
+  margin-top: 1rem;
+}
+
+.rd-home .text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.rd-home .leading-relaxed {
+  line-height: 1.625;
+}
+
+.rd-home .text-zinc-400 {
+  color: #a1a1aa;
+}
+
+.rd-home .font-mono {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+.rd-home .text-cyan-400\/90 {
+  color: rgb(34 211 238 / 0.9);
+}
+
+.rd-home .mt-8 {
+  margin-top: 2rem;
+}
+
+.rd-home .flex-wrap {
+  flex-wrap: wrap;
+}
+
+.rd-home .rd-path-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.875rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgb(6 182 212 / 0.22);
+  background-color: rgb(9 9 11 / 0.85);
+  transition:
+    border-color 200ms ease,
+    box-shadow 200ms ease;
+}
+
+.rd-home .rd-path-card .rd-path-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #67e8f9;
+}
+
+.rd-home .rd-path-card .rd-path-value {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.8rem;
+  color: rgb(34 211 238 / 0.88);
+}
+
+.rd-home .mt-8 {
+  margin-top: 2rem;
+}
+
+.rd-home .inline-flex {
+  display: inline-flex;
+}
+
+.rd-home .rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.rd-home .border-cyan-400\/60 {
+  border-color: rgb(34 211 238 / 0.6);
+}
+
+.rd-home .bg-cyan-400\/10 {
+  background-color: rgb(34 211 238 / 0.1);
+}
+
+.rd-home .px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.rd-home .py-2\.5 {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+
+.rd-home .text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.rd-home .font-medium {
+  font-weight: 500;
+}
+
+.rd-home .border-cyan-400\/40 {
+  border-color: rgb(34 211 238 / 0.4);
+}
+
+.rd-home .text-zinc-300 {
+  color: #d4d4d8;
+}
+
+.rd-home .transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rd-home .duration-200 {
+  transition-duration: 200ms;
+}
+
+.rd-home .mt-10 {
+  margin-top: 2.5rem;
+}
+
+.rd-home .text-2xs-footer {
+  font-size: 0.7rem;
+  line-height: 1rem;
+}
+
+.rd-home .text-zinc-500 {
+  color: #71717a;
+}
+
+.rd-home .text-cyan-400\/80 {
+  color: rgb(34 211 238 / 0.8);
+}
+
+.rd-home a.hover\:border-cyan-400:hover,
+.rd-home .hover\:border-cyan-400:hover {
+  border-color: #22d3ee;
+}
+
+.rd-home a.hover\:bg-cyan-400\/10:hover,
+.rd-home .hover\:bg-cyan-400\/10:hover {
+  background-color: rgb(34 211 238 / 0.1);
+}
+
+@media (min-width: 1024px) {
+  .rd-home .lg\:flex-row {
+    flex-direction: row;
+  }
+
+  .rd-home .lg\:gap-16 {
+    gap: 4rem;
+  }
+
+  .rd-home .lg\:items-start {
+    align-items: flex-start;
+  }
+
+  .rd-home .lg\:text-left {
+    text-align: left;
+  }
+
+  .rd-home .lg\:justify-start {
+    justify-content: flex-start;
+  }
+
+  .rd-home .lg\:h-52 {
+    height: 13rem;
+  }
+
+  .rd-home .lg\:w-52 {
+    width: 13rem;
+  }
+
+  .rd-home .lg\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
+  }
+}

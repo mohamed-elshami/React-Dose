@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { stripDevDependencies, copySharedTemplates } from "./shared.js";
+import { copyLandingTemplate } from "./landing.js";
 import { injectProvidersFromMetadata } from "./provider-injection.js";
 import { applyFeatureMetadataCleanup } from "./react-features.js";
 import {
@@ -109,6 +110,7 @@ export async function processNextEcosystem(project, targetDir, pkg) {
   const providerMetadata = [];
 
   copySharedTemplates(project.typescript, targetDir);
+  copyLandingTemplate(project, targetDir);
 
   for (const { name, metadata } of selectedFeatures) {
     copyNextFeatureTemplates(name, project.typescript, targetDir);

@@ -15,6 +15,7 @@ import {
 } from "./react-features.js";
 import { injectProvidersFromMetadata } from "./provider-injection.js";
 import { copySharedTemplates } from "./shared.js";
+import { copyLandingTemplate } from "./landing.js";
 import {
   convertRouterProjectToJavaScript,
   finalizeRouterPackageManifest,
@@ -114,6 +115,7 @@ export async function processViteEcosystem(project, targetDir, pkg) {
   const providerMetadata = [];
 
   copySharedTemplates(project.typescript, targetDir, { router: isRouter });
+  copyLandingTemplate(project, targetDir);
 
   for (const { name, metadata } of selectedFeatures) {
     copyReactFeatureTemplates(name, project.typescript, targetDir);
