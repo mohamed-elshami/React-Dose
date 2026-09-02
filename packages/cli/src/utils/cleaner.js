@@ -50,6 +50,9 @@ function cleanNextJsTemplate(targetDir, project) {
     safeUnlink(path.join(targetDir, "public", svg));
   }
   safeUnlink(path.join(targetDir, "src", "app", "favicon.ico"));
+  safeUnlink(path.join(targetDir, "src", "app", "icon.ico"));
+  safeUnlink(path.join(targetDir, "src", "app", "icon.png"));
+  safeUnlink(path.join(targetDir, "src", "app", "apple-icon.png"));
 
   if (!project.tailwind) {
     safeWrite(path.join(targetDir, "src", "app", "globals.css"), "");

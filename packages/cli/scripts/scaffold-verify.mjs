@@ -132,6 +132,8 @@ const configs = [
     assert(projectPath, pkg) {
       assertExists(projectPath, "src/features/home/index.ts");
       assertExists(projectPath, "src/app/layout.tsx");
+      assertExists(projectPath, "public/favicon.ico");
+      assertMissing(projectPath, "src/app/favicon.ico");
       assertExists(projectPath, "next.config.ts");
       assertMissing(projectPath, "src/app/[locale]");
       assertNotInDeps(pkg, "next-intl");

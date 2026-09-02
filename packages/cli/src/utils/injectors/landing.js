@@ -10,7 +10,15 @@ const LOGO_SOURCE = path.join(ASSETS_DIR, "react-dose.webp");
 const FAVICON_SOURCE = path.join(ASSETS_DIR, "favicon.ico");
 
 function resolveLandingFlavor(project) {
-  return project.framework === "next-core" ? "next" : "vite";
+  if (project.framework === "next-core") {
+    return "next";
+  }
+
+  if (project.architectureFlavor === "router-v7") {
+    return "router";
+  }
+
+  return "vite";
 }
 
 function safeUnlink(filePath) {
@@ -57,9 +65,17 @@ export function copyBrandFavicon(project, targetDir) {
 
   if (project.framework === "next-core") {
     const appDir = path.join(targetDir, "src", "app");
-    fs.mkdirSync(appDir, { recursive: true });
-    safeUnlink(path.join(appDir, "icon.jpg"));
-    fs.copyFileSync(FAVICON_SOURCE, path.join(appDir, "favicon.ico"));
+
+    for (const name of [
+      "favicon.ico",
+      "icon.jpg",
+      "icon.ico",
+      "icon.png",
+      "apple-icon.png",
+    ]) {
+      safeUnlink(path.join(appDir, name));
+    }
+
     return;
   }
 
@@ -131,16 +147,17 @@ export function copyLandingTemplate(project, targetDir) {
   safeUnlink(path.join(homeDir, "assets", "react-dose.jpg"));
   fs.copyFileSync(LOGO_SOURCE, path.join(homeDir, "assets", "react-dose.webp"));
 
-  const creatorLinksExt = project.typescript ? "tsx" : "jsx";
-  const creatorLinksSource = project.typescript
-    ? path.join(LANDING_DIR, "_shared", "creator-links.tsx")
-    : path.join(LANDING_DIR, "_shared", "creator-links.jsx");
-  safeUnlink(path.join(homeDir, "creator-links.jsx"));
-  safeUnlink(path.join(homeDir, "creator-links.tsx"));
-  fs.copyFileSync(
-    creatorLinksSource,
-    path.join(homeDir, `creator-links.${creatorLinksExt}`),
-  );
+  const creatorLinksFile = project.typescript ? "CreatorLinks.tsx" : "CreatorLinks.jsx";
+  const creatorLinksSource = path.join(LANDING_DIR, "_shared", creatorLinksFile);
+  for (const legacyName of [
+    "creator-links.jsx",
+    "creator-links.tsx",
+    "CreatorLinks.jsx",
+    "CreatorLinks.tsx",
+  ]) {
+    safeUnlink(path.join(homeDir, legacyName));
+  }
+  fs.copyFileSync(creatorLinksSource, path.join(homeDir, creatorLinksFile));
 
   fs.writeFileSync(path.join(homeDir, "home.css"), buildHomeStyles(project), "utf-8");
   copyBrandFavicon(project, targetDir);

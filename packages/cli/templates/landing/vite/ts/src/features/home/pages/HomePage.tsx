@@ -1,6 +1,6 @@
 import "../home.css";
 import logo from "../assets/react-dose.webp";
-import { CreatorLinks } from "../creator-links";
+import { CreatorLinks } from "../CreatorLinks";
 
 const stackPaths = [
   {

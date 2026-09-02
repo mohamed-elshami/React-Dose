@@ -132,14 +132,6 @@ export function injectRootProviderIntoLayout(
   project,
   selectedFeatures,
 ) {
-  const providerFeatures = selectedFeatures
-    .map(({ metadata }) => metadata)
-    .filter((metadata) => metadata.providerWrapper);
-
-  if (providerFeatures.length === 0) {
-    return;
-  }
-
   const useLocaleLayout = selectedFeatures.some(
     ({ metadata }) => metadata.layoutTarget === "locale",
   );
@@ -184,4 +176,109 @@ export function injectRootProviderIntoLayout(
   );
 
   fs.writeFileSync(layoutPath, content, "utf-8");
+}
+
+function patchNextGlobalsCss(targetDir) {
+  const globalsPath = path.join(targetDir, "src", "app", "globals.css");
+
+  if (!fs.existsSync(globalsPath)) {
+    return;
+  }
+
+  const content = `@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+`;
+
+  fs.writeFileSync(globalsPath, content, "utf-8");
+}
+
+function writeDefaultNextLayout(targetDir, project) {
+  const layoutPath = path.join(
+    targetDir,
+    "src",
+    "app",
+    project.typescript ? "layout.tsx" : "layout.jsx",
+  );
+
+  const content = project.typescript
+    ? `import type { Metadata } from "next";
+import RootProvider from "@/app/providers/root-provider";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "React Dose",
+  description: "Feature-first React ecosystem scaffolded with React Dose CLI.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className="min-h-full antialiased">
+        <RootProvider>{children}</RootProvider>
+      </body>
+    </html>
+  );
+}
+`
+    : `import RootProvider from "@/app/providers/root-provider";
+import "./globals.css";
+
+export const metadata = {
+  title: "React Dose",
+  description: "Feature-first React ecosystem scaffolded with React Dose CLI.",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body className="min-h-full antialiased">
+        <RootProvider>{children}</RootProvider>
+      </body>
+    </html>
+  );
+}
+`;
+
+  fs.writeFileSync(layoutPath, content, "utf-8");
+}
+
+export function finalizeNextAppShell(project, targetDir, selectedFeatures) {
+  const hasI18n = selectedFeatures.some(({ name }) => name === "i18n");
+
+  if (project.tailwind) {
+    patchNextGlobalsCss(targetDir);
+  }
+
+  if (hasI18n) {
+    injectRootProviderIntoLayout(targetDir, project, selectedFeatures);
+    return;
+  }
+
+  writeDefaultNextLayout(targetDir, project);
 }

@@ -1,4 +1,10 @@
-export const CREATOR_LINKS = [
+type SocialIconName = "github" | "linkedin" | "portfolio" | "youtube";
+
+export const CREATOR_LINKS: Array<{
+  label: string;
+  href: string;
+  icon: SocialIconName;
+}> = [
   {
     label: "GitHub",
     href: "https://github.com/mohamed-elshami",
@@ -11,7 +17,7 @@ export const CREATOR_LINKS = [
   },
   {
     label: "Portfolio",
-    href: "https://mohamed-elshami.vercel.app/",
+    href: "https://mohamed-elshami-dev.vercel.app/",
     icon: "portfolio",
   },
   {
@@ -20,10 +26,8 @@ export const CREATOR_LINKS = [
     icon: "youtube",
   },
 ];
-/**
- * @param {{ name: string }} props
- */
-function SocialIcon({ name }) {
+
+function SocialIcon({ name }: { name: SocialIconName }) {
   if (name === "github") {
     return (
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

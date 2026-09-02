@@ -9,6 +9,7 @@ import {
 } from "./injectors/shared.js";
 import { processViteEcosystem } from "./injectors/vite.js";
 import { processNextEcosystem } from "./injectors/next.js";
+import { finalizeProjectPolish } from "./injectors/project-polish.js";
 
 const pinsPath = fileURLToPath(new URL("./scaffold-pins.json", import.meta.url));
 const scaffoldPins = JSON.parse(fs.readFileSync(pinsPath, "utf-8"));
@@ -67,6 +68,8 @@ export async function injectEcosystemDependencies(project) {
       ...baseDeps.devDependencies,
       ...frameworkDeps.devDependencies,
     };
+
+    finalizeProjectPolish(project, targetDir, pkg);
 
     fs.writeFileSync(
       packageJsonPath,

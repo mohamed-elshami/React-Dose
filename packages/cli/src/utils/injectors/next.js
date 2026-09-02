@@ -10,6 +10,7 @@ import {
   copyNextFeatureTemplates,
   ensureRootProvider,
   injectRootProviderIntoLayout,
+  finalizeNextAppShell,
 } from "./next-features.js";
 
 /**
@@ -138,9 +139,7 @@ export async function processNextEcosystem(project, targetDir, pkg) {
     useClientDirective: true,
   });
 
-  if (providerMetadata.length > 0) {
-    injectRootProviderIntoLayout(targetDir, project, selectedFeatures);
-  }
+  finalizeNextAppShell(project, targetDir, selectedFeatures);
 
   const hasI18nNextConfig = selectedFeatures.some(
     ({ metadata }) => metadata.nextConfig,
