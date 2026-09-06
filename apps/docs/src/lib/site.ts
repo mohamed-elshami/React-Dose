@@ -5,9 +5,22 @@ export const SITE_TAGLINE =
 export const SITE_DESCRIPTION =
   "create-react-dose scaffolds feature-first React apps on Vite, Next.js, or React Router. Official tooling first, scalable architecture second.";
 
-export const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://react-dose.vercel.app"
-).replace(/\/$/, "");
+const DEFAULT_SITE_URL = "https://react-dose.vercel.app";
+
+function resolveSiteUrl() {
+  const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+
+  const vercelUrl = process.env.VERCEL_URL?.trim();
+  if (vercelUrl) {
+    const host = vercelUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+    return `https://${host}`;
+  }
+
+  return DEFAULT_SITE_URL;
+}
+
+export const SITE_URL = resolveSiteUrl();
 
 export const SITE_TWITTER = "@Fekra-2025";
 
