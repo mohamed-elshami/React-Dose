@@ -236,11 +236,16 @@ pnpm cli:dev
 # Verify all scaffold combinations (install + build + lint)
 pnpm cli:verify
 
+# Docs website (landing + /docs)
+pnpm docs:dev
+
 # Scaffold playground apps (vite-ts, router-ts, next-ts)
 node packages/cli/scripts/scaffold-playground-all.mjs
 ```
 
 Scaffold verification is **manual** — run `pnpm cli:verify` locally, or trigger **Scaffold Verify** from GitHub Actions. It does not run on every push.
+
+The docs site lives in `apps/docs`. Deploy it on Vercel with Root Directory `apps/docs` — that does **not** republish the npm package.
 
 ---
 
