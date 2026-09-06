@@ -1,5 +1,10 @@
 # create-react-dose
 
+## 1.0.1
+
+- README logo uses a GitHub raw URL so it renders on npm
+- Package repository/homepage links point to `mohamed-elshami/React-Dose`
+
 ## 1.0.0
 
 ### Initial public release

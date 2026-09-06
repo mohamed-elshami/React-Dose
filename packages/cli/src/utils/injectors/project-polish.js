@@ -41,7 +41,7 @@ npm run dev     # Start development server
 npm run build   # Production build
 \`\`\`
 
-Scaffolded with [React Dose CLI](https://github.com/mohamed-elshami/react-dose-ecosystem).
+Scaffolded with [React Dose CLI](https://github.com/mohamed-elshami/React-Dose).
 `;
 }
 

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/react-dose.png" alt="React Dose" width="180" height="180" style="border-radius: 9999px; object-fit: cover;" />
+  <img src="https://raw.githubusercontent.com/mohamed-elshami/React-Dose/main/packages/cli/assets/react-dose.png" alt="React Dose" width="180" height="180" style="border-radius: 9999px; object-fit: cover;" />
 </p>
 
 <h1 align="center">create-react-dose</h1>
@@ -269,7 +269,7 @@ React Dose uses **one GitHub monorepo** and **multiple independent npm packages*
 
 | Where | What |
 |-------|------|
-| **GitHub** | Single repo: [`react-dose-ecosystem`](https://github.com/mohamed-elshami/react-dose-ecosystem) — CLI, UI, templates, and tooling developed together |
+| **GitHub** | Single repo: [`React-Dose`](https://github.com/mohamed-elshami/React-Dose) — CLI, UI, templates, and tooling developed together |
 | **npm** | Separate installs — each tool is published on its own |
 
 ### npm packages
@@ -287,7 +287,7 @@ Changesets + GitHub Actions publish each package independently from the same mon
 
 ## Contributing
 
-React Dose lives in the [react-dose-ecosystem](https://github.com/mohamed-elshami/react-dose-ecosystem) monorepo:
+React Dose lives in the [React-Dose](https://github.com/mohamed-elshami/React-Dose) monorepo:
 
 | Path | npm package |
 |------|-------------|
@@ -312,7 +312,7 @@ Issues and PRs welcome. Run `pnpm cli:verify` before submitting scaffold-related
 - **Portfolio:** [mohamed-elshami-dev.vercel](https://mohamed-elshami-dev.vercel.app/)
 - **YouTube:** [youtube.com/@Fekra-2025](https://www.youtube.com/@Fekra-2025)
 
-Issues, ideas, and PRs are welcome in the [React Dose repository](https://github.com/mohamed-elshami/react-dose-ecosystem).
+Issues, ideas, and PRs are welcome in the [React Dose repository](https://github.com/mohamed-elshami/React-Dose).
 
 ---
 
