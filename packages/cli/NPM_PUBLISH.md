@@ -100,6 +100,7 @@ Update README badges and any docs that reference `@react-dose/cli` — the npm p
 | Issue | Fix |
 |-------|-----|
 | `403 Forbidden` on publish | Wrong token, not logged in, or name taken by another user |
+| `404 Not Found` on `PUT` publish | npm hides auth failures as 404. Recreate an **Automation** token (not Granular/org-only), from the **same user** who owns `create-react-dose`, then update the GitHub `NPM_TOKEN` secret |
 | `prepublishOnly` fails | Run `validate-package.mjs` and fix missing templates |
 | Published wrong files | Check `files` in `package.json`; re-publish with fixed version |
 | `npx` runs old version | Use `@latest` or explicit version: `create-react-dose@1.0.0` |
