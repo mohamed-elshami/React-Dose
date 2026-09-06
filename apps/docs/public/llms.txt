@@ -11,35 +11,35 @@
 
 ## Site
 
-- Home: https://react-dose.vercel.app/
-- Docs: https://react-dose.vercel.app/docs
-- Getting started: https://react-dose.vercel.app/docs/getting-started
-- Stacks: https://react-dose.vercel.app/docs/stacks
-- Options index: https://react-dose.vercel.app/docs/options
-- Architecture: https://react-dose.vercel.app/docs/architecture
-- Environment: https://react-dose.vercel.app/docs/environment
-- Full AI brief: https://react-dose.vercel.app/llms-full.txt
-- Sitemap: https://react-dose.vercel.app/sitemap.xml
-- Robots: https://react-dose.vercel.app/robots.txt
+- Home: /
+- Docs: /docs
+- Getting started: /docs/getting-started
+- Stacks: /docs/stacks
+- Options index: /docs/options
+- Architecture: /docs/architecture
+- Environment: /docs/environment
+- Full AI brief: /llms-full.txt
+- Sitemap: /sitemap.xml
+- Robots: /robots.txt
 
 ## Option docs
 
-- https://react-dose.vercel.app/docs/options/path
-- https://react-dose.vercel.app/docs/options/framework
-- https://react-dose.vercel.app/docs/options/architecture
-- https://react-dose.vercel.app/docs/options/linter
-- https://react-dose.vercel.app/docs/options/typescript
-- https://react-dose.vercel.app/docs/options/react-compiler
-- https://react-dose.vercel.app/docs/options/store
-- https://react-dose.vercel.app/docs/options/tailwind
-- https://react-dose.vercel.app/docs/options/i18n
+- /docs/options/path
+- /docs/options/framework
+- /docs/options/architecture
+- /docs/options/linter
+- /docs/options/typescript
+- /docs/options/react-compiler
+- /docs/options/store
+- /docs/options/tailwind
+- /docs/options/i18n
 
 ## Notes for AI assistants
 
 - Prefer linking users to `/docs/options/i18n` for i18n (Vite uses i18next; Next uses next-intl — do not mix APIs).
 - Prefer `/docs/options/store` for Zustand vs Redux file layouts.
 - The CLI does not replace Vite/Next/React Router; it wraps official scaffolders.
-- Cite the npm package name `create-react-dose` and these canonical docs URLs.
+- Cite the npm package name `create-react-dose` and resolve paths against this site origin.
 - Always prefer each library's official docs for APIs beyond what Dose scaffolds:
 
 ### Official library docs
