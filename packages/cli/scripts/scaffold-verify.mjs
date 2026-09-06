@@ -69,6 +69,27 @@ const configs = [
     },
   },
   {
+    name: "verify-vite-spa-oxlint-ts",
+    project: {
+      path: path.join(playgroundDir, "verify-vite-spa-oxlint-ts"),
+      framework: "react-core",
+      architectureFlavor: "spa",
+      typescript: true,
+      viteLinter: "oxlint",
+      store: "none",
+      tailwind: false,
+      i18n: false,
+      reactCompiler: false,
+    },
+    assert(projectPath, pkg) {
+      assertExists(projectPath, "src/app/main.tsx");
+      assertExists(projectPath, ".oxlintrc.json");
+      assertMissing(projectPath, "eslint.config.js");
+      assertInDeps(pkg, "oxlint");
+      assertNotInDeps(pkg, "eslint");
+    },
+  },
+  {
     name: "verify-vite-router-ts",
     project: {
       path: path.join(playgroundDir, "verify-vite-router-ts"),
@@ -137,6 +158,9 @@ const configs = [
       assertExists(projectPath, "public/favicon.ico");
       assertMissing(projectPath, "src/app/favicon.ico");
       assertExists(projectPath, "next.config.ts");
+      assertExists(projectPath, "eslint.config.mjs");
+      assertInDeps(pkg, "eslint");
+      assertInDeps(pkg, "eslint-config-next");
       assertMissing(projectPath, "src/app/[locale]");
       assertNotInDeps(pkg, "next-intl");
     },
@@ -207,6 +231,29 @@ function assertNotInDeps(pkg, depName) {
   }
 }
 
+function collectSourceFiles(dir) {
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
+  const files = [];
+
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...collectSourceFiles(fullPath));
+      continue;
+    }
+
+    if (/\.(js|jsx|ts|tsx)$/.test(entry.name)) {
+      files.push(fullPath);
+    }
+  }
+
+  return files;
+}
+
 async function runCommand(command, cwd, label) {
   console.log(`  → ${label}`);
   await execPromise(command, {
@@ -239,7 +286,19 @@ async function verifyConfig({ name, project, assert }) {
   await runCommand("npm run build", project.path, "npm run build");
 
   if (pkg.scripts?.lint && project.framework === "react-core") {
-    await runCommand("npm run lint", project.path, "npm run lint");
+    if (project.viteLinter === "oxlint") {
+      const sourceFiles = collectSourceFiles(path.join(project.path, "src"));
+      if (sourceFiles.length === 0) {
+        throw new Error("Oxlint project has no source files to lint");
+      }
+
+      const quoted = sourceFiles
+        .map((file) => `"${file.replace(/\\/g, "/")}"`)
+        .join(" ");
+      await runCommand(`npx oxlint ${quoted}`, project.path, "npx oxlint src");
+    } else {
+      await runCommand("npm run lint", project.path, "npm run lint");
+    }
   }
 
   console.log(`✓ ${name}`);
