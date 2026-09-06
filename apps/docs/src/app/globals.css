@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+:root {
+  --rd-bg: #050505;
+  --rd-bg-elevated: #0c0c0c;
+  --rd-cyan: #22d3ee;
+  --rd-cyan-dim: rgb(34 211 238 / 0.14);
+  --rd-text: #fafafa;
+  --rd-muted: #a1a1aa;
+  --rd-border: rgb(255 255 255 / 0.08);
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--rd-bg);
+  color: var(--rd-text);
+}
+
+body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.rd-glow-text {
+  text-shadow: 0 0 20px rgb(34 211 238 / 0.55);
+}
+
+.rd-hero-atmosphere {
+  position: relative;
+  isolation: isolate;
+}
+
+.rd-hero-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 18% 42%, rgb(34 211 238 / 0.14), transparent 42%),
+    radial-gradient(circle at 82% 58%, rgb(34 211 238 / 0.06), transparent 38%);
+}
+
+.rd-btn-primary {
+  box-shadow: 0 0 20px rgb(34 211 238 / 0.15);
+  transition: box-shadow 200ms ease, background-color 200ms ease, color 200ms ease;
+}
+
+.rd-btn-primary:hover {
+  box-shadow: 0 0 28px rgb(34 211 238 / 0.28);
+}
+
+/* Transform-only motion so LCP text/images stay visible immediately */
+.rd-fade-up {
+  animation: rd-fade-up 700ms ease both;
+}
+
+.rd-fade-up-delay {
+  animation: rd-fade-up 700ms ease 120ms both;
+}
+
+.rd-fade-up-delay-2 {
+  animation: rd-fade-up 700ms ease 240ms both;
+}
+
+@keyframes rd-fade-up {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-fade-up,
+  .rd-fade-up-delay,
+  .rd-fade-up-delay-2 {
+    animation: none;
+  }
+}
+
+.rd-prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.rd-prose h3 {
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.rd-prose p,
+.rd-prose ul,
+.rd-prose ol {
+  color: var(--rd-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.rd-prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.rd-prose ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+
+.rd-prose li {
+  margin-bottom: 0.35rem;
+}
+
+.rd-prose a {
+  color: var(--rd-cyan);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.rd-prose code {
+  font-size: 0.9em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.35rem;
+  background: rgb(255 255 255 / 0.06);
+  color: #e4e4e7;
+}
+
+.rd-prose pre {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.rd-prose .rd-code-block pre {
+  overflow-x: auto;
+}
+
+.rd-prose .rd-stack-panel h3 {
+  margin-top: 0;
+}
+
+.rd-prose .rd-stack-panel .rd-official-docs {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.rd-prose .rd-official-docs ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.rd-prose .rd-official-docs li {
+  margin-bottom: 0;
+}
+
+.rd-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.9rem;
+}
+
+.rd-prose th,
+.rd-prose td {
+  border: 1px solid var(--rd-border);
+  padding: 0.65rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.rd-prose th {
+  background: rgb(255 255 255 / 0.03);
+  color: var(--rd-text);
+  font-weight: 600;
+}
+
+.rd-prose td {
+  color: var(--rd-muted);
+}

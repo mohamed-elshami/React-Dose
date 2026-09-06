@@ -1,0 +1,107 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+}
+
+.rd-home .rd-logo-ring {
+  border: none;
+  padding: 0;
+  border-radius: 9999px;
+  box-shadow: 0 0 32px rgb(34 211 238 / 0.35);
+}
+
+.rd-home .rd-logo-ring img {
+  border: none;
+  display: block;
+}
+
+.rd-home .rd-glow-text {
+  text-shadow: 0 0 20px rgb(34 211 238 / 0.55);
+}
+
+.rd-home .rd-btn-primary {
+  box-shadow: 0 0 20px rgb(34 211 238 / 0.15);
+}
+
+.rd-home .rd-btn-primary:hover {
+  box-shadow: 0 0 28px rgb(34 211 238 / 0.28);
+}
+
+.rd-home.rd-hero-screen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.rd-home.rd-hero-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 42%, rgb(34 211 238 / 0.14), transparent 42%),
+    radial-gradient(circle at 82% 58%, rgb(34 211 238 / 0.06), transparent 38%);
+}
+
+.rd-home .rd-path-card {
+  min-width: 8.5rem;
+  max-width: 11rem;
+  box-shadow: 0 0 20px rgb(34 211 238 / 0.06);
+}
+
+.rd-home .rd-path-card .rd-path-desc {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #a1a1aa;
+}
+
+.rd-home .rd-path-card:hover {
+  border-color: rgb(34 211 238 / 0.55);
+  box-shadow: 0 0 24px rgb(34 211 238 / 0.14);
+}
+
+.rd-home .rd-creator-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+  max-width: 14rem;
+}
+
+.rd-home .rd-creator-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid rgb(34 211 238 / 0.25);
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #d4d4d8;
+  text-decoration: none;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.rd-home .rd-creator-link:hover {
+  border-color: rgb(34 211 238 / 0.55);
+  background-color: rgb(34 211 238 / 0.08);
+  color: #fff;
+  box-shadow: 0 0 18px rgb(34 211 238 / 0.12);
+}
+
+.rd-home .rd-creator-link svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}

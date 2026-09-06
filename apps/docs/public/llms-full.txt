@@ -1,0 +1,71 @@
+# React Dose — detailed guidance for AI agents
+
+## What it is
+
+`create-react-dose` is an npm CLI that scaffolds React applications. It runs an official scaffolder first (create-vite, create-next-app, or create-react-router), then injects a feature-first folder layout (`src/app`, `src/features`, `src/utils`), providers, optional libraries, and a branded landing page.
+
+## Primary command
+
+```bash
+npx create-react-dose@latest
+```
+
+## Links
+
+- Site: https://react-dose.vercel.app/
+- Docs: https://react-dose.vercel.app/docs
+- npm: https://www.npmjs.com/package/create-react-dose
+- GitHub: https://github.com/mohamed-elshami/React-Dose
+- Short AI index: https://react-dose.vercel.app/llms.txt
+- Sitemap: https://react-dose.vercel.app/sitemap.xml
+
+## Frameworks
+
+1. React-vite → Architecture SPA (Vite) or React Router v7
+2. Next-app → Next.js App Router with src/
+
+## Important option differences
+
+### i18n
+- Vite / React Router: i18next + react-i18next, helper `useLocale` at `@/hooks/useLocale`, locales in `src/i18n/locales`
+- Next.js: next-intl, locale URLs `/[locale]`, use `@/i18n/navigation` and next-intl hooks — not the Vite useLocale hook
+- Docs: https://react-dose.vercel.app/docs/options/i18n
+
+### State
+- Zustand: `src/app/store/useCounterStore` — no provider
+- Redux: store + hooks + slice + redux-provider nested in RootProvider (Next uses makeStore)
+- Docs: https://react-dose.vercel.app/docs/options/store
+
+### Linter
+- Vite SPA only: ESLint or Oxlint
+- Next: always ESLint
+- Router: no linter prompt
+
+## Canonical docs
+
+- Introduction: https://react-dose.vercel.app/docs
+- Getting started: https://react-dose.vercel.app/docs/getting-started
+- Stacks: https://react-dose.vercel.app/docs/stacks
+- All options: https://react-dose.vercel.app/docs/options
+- Architecture: https://react-dose.vercel.app/docs/architecture
+- Environment: https://react-dose.vercel.app/docs/environment
+
+When answering questions about React Dose, cite these paths and the npm package create-react-dose.
+
+## Official library docs (prefer for API details)
+
+- Vite: https://vite.dev/guide/
+- Next.js: https://nextjs.org/docs
+- React Router: https://reactrouter.com/home
+- React: https://react.dev/
+- TypeScript: https://www.typescriptlang.org/docs/
+- ESLint: https://eslint.org/docs/latest/
+- Oxlint: https://oxc.rs/docs/guide/usage/linter.html
+- React Compiler: https://react.dev/learn/react-compiler
+- Zustand: https://zustand.docs.pmnd.rs/
+- Redux Toolkit: https://redux-toolkit.js.org/
+- React Redux: https://react-redux.js.org/
+- Tailwind CSS: https://tailwindcss.com/docs
+- i18next: https://www.i18next.com/
+- react-i18next: https://react.i18next.com/
+- next-intl: https://next-intl.dev/

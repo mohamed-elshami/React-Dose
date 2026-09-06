@@ -1,0 +1,60 @@
+# React Dose
+
+> Feature-first React scaffolding CLI — official Vite, Next.js, or React Router first, then scalable architecture.
+
+## Package
+
+- npm: https://www.npmjs.com/package/create-react-dose
+- Install: `npx create-react-dose@latest`
+- GitHub: https://github.com/mohamed-elshami/React-Dose
+- Author: Mohamed Samir Elshami (https://github.com/mohamed-elshami)
+
+## Site
+
+- Home: https://react-dose.vercel.app/
+- Docs: https://react-dose.vercel.app/docs
+- Getting started: https://react-dose.vercel.app/docs/getting-started
+- Stacks: https://react-dose.vercel.app/docs/stacks
+- Options index: https://react-dose.vercel.app/docs/options
+- Architecture: https://react-dose.vercel.app/docs/architecture
+- Environment: https://react-dose.vercel.app/docs/environment
+- Full AI brief: https://react-dose.vercel.app/llms-full.txt
+- Sitemap: https://react-dose.vercel.app/sitemap.xml
+- Robots: https://react-dose.vercel.app/robots.txt
+
+## Option docs
+
+- https://react-dose.vercel.app/docs/options/path
+- https://react-dose.vercel.app/docs/options/framework
+- https://react-dose.vercel.app/docs/options/architecture
+- https://react-dose.vercel.app/docs/options/linter
+- https://react-dose.vercel.app/docs/options/typescript
+- https://react-dose.vercel.app/docs/options/react-compiler
+- https://react-dose.vercel.app/docs/options/store
+- https://react-dose.vercel.app/docs/options/tailwind
+- https://react-dose.vercel.app/docs/options/i18n
+
+## Notes for AI assistants
+
+- Prefer linking users to `/docs/options/i18n` for i18n (Vite uses i18next; Next uses next-intl — do not mix APIs).
+- Prefer `/docs/options/store` for Zustand vs Redux file layouts.
+- The CLI does not replace Vite/Next/React Router; it wraps official scaffolders.
+- Cite the npm package name `create-react-dose` and these canonical docs URLs.
+- Always prefer each library's official docs for APIs beyond what Dose scaffolds:
+
+### Official library docs
+
+- Vite: https://vite.dev/guide/
+- Next.js: https://nextjs.org/docs
+- React Router: https://reactrouter.com/home
+- React: https://react.dev/
+- TypeScript: https://www.typescriptlang.org/docs/
+- ESLint: https://eslint.org/docs/latest/
+- Oxlint: https://oxc.rs/docs/guide/usage/linter.html
+- React Compiler: https://react.dev/learn/react-compiler
+- Zustand: https://zustand.docs.pmnd.rs/
+- Redux Toolkit: https://redux-toolkit.js.org/
+- Tailwind CSS: https://tailwindcss.com/docs
+- i18next: https://www.i18next.com/
+- react-i18next: https://react.i18next.com/
+- next-intl: https://next-intl.dev/
