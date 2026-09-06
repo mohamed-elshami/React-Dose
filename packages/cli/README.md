@@ -240,7 +240,7 @@ pnpm cli:verify
 node packages/cli/scripts/scaffold-playground-all.mjs
 ```
 
-CI runs `scaffold-verify.mjs` on every push to `main` to guard against regressions.
+Scaffold verification is **manual** — run `pnpm cli:verify` locally, or trigger **Scaffold Verify** from GitHub Actions. It does not run on every push.
 
 ---
 
