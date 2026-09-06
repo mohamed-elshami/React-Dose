@@ -40,9 +40,13 @@ Structured data (JSON-LD): WebSite, Organization, SoftwareApplication, Breadcrum
 
 ## Deploy (Vercel)
 
-Import the **same** GitHub repo, set **Root Directory** to `apps/docs`.
+1. Import the **same** GitHub repo on [Vercel](https://vercel.com).
+2. Set **Root Directory** to `apps/docs`.
+3. Framework: Next.js (detected automatically).
+4. Add env var `NEXT_PUBLIC_SITE_URL` = your live domain (no trailing slash).
+5. Deploy.
 
-Add env var `NEXT_PUBLIC_SITE_URL` to your real domain.
+`vercel.json` already sets install from the monorepo root (`pnpm install`) and `pnpm build`.
 
 This app is not published to npm. Deploying it does not republish `create-react-dose`.
 
