@@ -125,7 +125,7 @@ export function websiteJsonLd() {
         url: NPM_PACKAGE,
         downloadUrl: NPM_PACKAGE,
         installUrl: NPM_PACKAGE,
-        softwareVersion: "1.0.2",
+        softwareVersion: "1.0.3",
         offers: {
           "@type": "Offer",
           price: "0",
