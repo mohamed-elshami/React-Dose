@@ -1,5 +1,11 @@
 # create-react-dose
 
+## 1.0.2
+
+- npm `homepage` points to the docs site: https://react-dose-docs.vercel.app
+- Scaffolded landing page puts **React Dose docs** first (primary CTA)
+- README links the live docs site
+
 ## 1.0.1
 
 - README logo uses a GitHub raw URL so it renders on npm

@@ -1,6 +1,6 @@
 {
   "name": "create-react-dose",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Scaffold feature-first React apps on top of Vite, Next.js, and React Router — official tooling first, scalable architecture second.",
   "license": "MIT",
   "author": {
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/mohamed-elshami/React-Dose/issues"
   },
-  "homepage": "https://github.com/mohamed-elshami/React-Dose/tree/main/packages/cli#readme",
+  "homepage": "https://react-dose-docs.vercel.app",
   "keywords": [
     "react",
     "vite",

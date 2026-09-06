@@ -10,6 +10,16 @@
 </p>
 
 <p align="center">
+  <a href="https://react-dose-docs.vercel.app"><strong>Docs</strong></a>
+  &nbsp;·&nbsp;
+  <a href="https://react-dose-docs.vercel.app/docs/getting-started">Getting started</a>
+  &nbsp;·&nbsp;
+  <a href="https://www.npmjs.com/package/create-react-dose">npm</a>
+  &nbsp;·&nbsp;
+  <a href="https://github.com/mohamed-elshami/React-Dose">GitHub</a>
+</p>
+
+<p align="center">
   Created and owned by <a href="https://github.com/mohamed-elshami"><strong>Mohamed Samir Elshami</strong></a>
   &nbsp;·&nbsp;
   <a href="https://github.com/mohamed-elshami">GitHub</a>
@@ -245,7 +255,7 @@ node packages/cli/scripts/scaffold-playground-all.mjs
 
 Scaffold verification is **manual** — run `pnpm cli:verify` locally, or trigger **Scaffold Verify** from GitHub Actions. It does not run on every push.
 
-The docs site lives in `apps/docs`. Deploy it on Vercel with Root Directory `apps/docs` — that does **not** republish the npm package.
+The docs site lives in `apps/docs` and is live at **https://react-dose-docs.vercel.app**. Deploy updates on Vercel with Root Directory `apps/docs` — that does **not** republish the npm package.
 
 ---
 

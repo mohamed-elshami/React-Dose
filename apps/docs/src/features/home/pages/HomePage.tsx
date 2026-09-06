@@ -24,7 +24,12 @@ const stackPaths = [
 ];
 
 const docLinks = [
-  { href: "https://nextjs.org/docs", label: "Next.js docs", primary: true },
+  {
+    href: "https://react-dose-docs.vercel.app/docs",
+    label: "React Dose docs",
+    primary: true,
+  },
+  { href: "https://nextjs.org/docs", label: "Next.js docs" },
   { href: "https://react.dev", label: "React docs" },
 ];
 
