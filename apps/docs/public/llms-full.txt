@@ -12,12 +12,12 @@ npx create-react-dose@latest
 
 ## Links
 
-- Site: https://react-dose.vercel.app/
-- Docs: https://react-dose.vercel.app/docs
+- Site home: /
+- Docs: /docs
 - npm: https://www.npmjs.com/package/create-react-dose
 - GitHub: https://github.com/mohamed-elshami/React-Dose
-- Short AI index: https://react-dose.vercel.app/llms.txt
-- Sitemap: https://react-dose.vercel.app/sitemap.xml
+- Short AI index: /llms.txt
+- Sitemap: /sitemap.xml
 
 ## Frameworks
 
@@ -29,12 +29,12 @@ npx create-react-dose@latest
 ### i18n
 - Vite / React Router: i18next + react-i18next, helper `useLocale` at `@/hooks/useLocale`, locales in `src/i18n/locales`
 - Next.js: next-intl, locale URLs `/[locale]`, use `@/i18n/navigation` and next-intl hooks — not the Vite useLocale hook
-- Docs: https://react-dose.vercel.app/docs/options/i18n
+- Docs: /docs/options/i18n
 
 ### State
 - Zustand: `src/app/store/useCounterStore` — no provider
 - Redux: store + hooks + slice + redux-provider nested in RootProvider (Next uses makeStore)
-- Docs: https://react-dose.vercel.app/docs/options/store
+- Docs: /docs/options/store
 
 ### Linter
 - Vite SPA only: ESLint or Oxlint
@@ -43,14 +43,14 @@ npx create-react-dose@latest
 
 ## Canonical docs
 
-- Introduction: https://react-dose.vercel.app/docs
-- Getting started: https://react-dose.vercel.app/docs/getting-started
-- Stacks: https://react-dose.vercel.app/docs/stacks
-- All options: https://react-dose.vercel.app/docs/options
-- Architecture: https://react-dose.vercel.app/docs/architecture
-- Environment: https://react-dose.vercel.app/docs/environment
+- Introduction: /docs
+- Getting started: /docs/getting-started
+- Stacks: /docs/stacks
+- All options: /docs/options
+- Architecture: /docs/architecture
+- Environment: /docs/environment
 
-When answering questions about React Dose, cite these paths and the npm package create-react-dose.
+When answering questions about React Dose, cite these paths and the npm package create-react-dose. Resolve relative paths against the current site origin.
 
 ## Official library docs (prefer for API details)
 

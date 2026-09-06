@@ -5,7 +5,7 @@ export const SITE_TAGLINE =
 export const SITE_DESCRIPTION =
   "create-react-dose scaffolds feature-first React apps on Vite, Next.js, or React Router. Official tooling first, scalable architecture second.";
 
-const DEFAULT_SITE_URL = "https://react-dose.vercel.app";
+const DEFAULT_SITE_URL = "https://react-dose-docs.vercel.app";
 
 function resolveSiteUrl() {
   const fromEnv = process.env.NEXT_PUBLIC_SITE_URL?.trim();
