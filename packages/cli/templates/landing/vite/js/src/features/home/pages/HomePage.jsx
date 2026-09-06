@@ -24,7 +24,12 @@ const stackPaths = [
 ];
 
 const docLinks = [
-  { href: "https://vite.dev", label: "Vite docs", primary: true },
+  {
+    href: "https://react-dose-docs.vercel.app/docs",
+    label: "React Dose docs",
+    primary: true,
+  },
+  { href: "https://vite.dev", label: "Vite docs" },
   { href: "https://react.dev", label: "React docs" },
   { href: "https://reactrouter.com", label: "React Router" },
 ];
