@@ -1,5 +1,11 @@
 # create-react-dose
 
+## 1.0.3
+
+### Patch Changes
+
+- Point the npm homepage and scaffolded landing-page CTA at the live docs site (https://react-dose-docs.vercel.app).
+
 ## 1.0.2
 
 - npm `homepage` points to the docs site: https://react-dose-docs.vercel.app
