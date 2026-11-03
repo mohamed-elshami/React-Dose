@@ -35,9 +35,21 @@ if (pkg.name !== "create-react-dose") {
   failed = true;
 }
 
-if (!pkg.bin?.["create-react-dose"]) {
-  console.error("Missing bin entry: create-react-dose");
+// Accept string bin shorthand ("bin": "./src/index.js") or object map.
+const binEntry =
+  typeof pkg.bin === "string" ? pkg.bin : pkg.bin?.["create-react-dose"];
+
+if (!binEntry) {
+  console.error(
+    'Missing bin entry: expected "bin": "./src/index.js" or bin["create-react-dose"]',
+  );
   failed = true;
+} else {
+  const binPath = path.join(packageRoot, binEntry);
+  if (!fs.existsSync(binPath)) {
+    console.error(`Bin file does not exist: ${binEntry}`);
+    failed = true;
+  }
 }
 
 if (failed) {
