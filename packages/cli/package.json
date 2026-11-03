@@ -31,9 +31,7 @@
   ],
   "type": "module",
   "main": "./src/index.js",
-  "bin": {
-    "create-react-dose": "./src/index.js"
-  },
+  "bin": "./src/index.js",
   "files": [
     "src",
     "templates",
