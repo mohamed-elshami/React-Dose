@@ -53,24 +53,10 @@ export function patchTsconfigAppPathAlias(targetDir) {
   let content = fs.readFileSync(tsconfigPath, "utf-8");
 
   if (content.includes('"@/*"')) {
-    if (!content.includes('"ignoreDeprecations"')) {
-      const tsconfig = JSON.parse(stripJsonComments(content));
-      tsconfig.compilerOptions = {
-        ...tsconfig.compilerOptions,
-        ignoreDeprecations: "6.0",
-      };
-
-      fs.writeFileSync(
-        tsconfigPath,
-        `${JSON.stringify(tsconfig, null, 2)}\n`,
-        "utf-8",
-      );
-    }
     return;
   }
 
   const aliasBlock = `    "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./src/*"]
     }`;
@@ -93,7 +79,6 @@ export function patchTsconfigAppPathAlias(targetDir) {
   tsconfig.compilerOptions = {
     ...tsconfig.compilerOptions,
     baseUrl: ".",
-    ignoreDeprecations: "6.0",
     paths: {
       ...(tsconfig.compilerOptions?.paths ?? {}),
       "@/*": ["./src/*"],
