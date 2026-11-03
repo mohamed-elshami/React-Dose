@@ -99,7 +99,9 @@ Update README badges and any docs that reference `@react-dose/cli` — the npm p
 
 | Issue | Fix |
 |-------|-----|
-| `403 Forbidden` on publish | Wrong token, not logged in, or name taken by another user |
+| `403 Forbidden` on publish (local) | Prefer GitHub Actions + `NPM_TOKEN` secret. Locally: enable **2FA**, or use a token with publish + bypass-2FA |
+| `403 Forbidden` on publish (Actions) | Regenerate npm **Automation** token (or Granular with bypass 2FA), update repo secret `NPM_TOKEN`, re-run **Release** workflow |
+| `bin ... was invalid and removed` | Use `"bin": "./src/index.js"` (string form when the CLI name matches the package name) |
 | `404 Not Found` on `PUT` publish | npm hides auth failures as 404. Recreate an **Automation** token (not Granular/org-only), from the **same user** who owns `create-react-dose`, then update the GitHub `NPM_TOKEN` secret |
 | `prepublishOnly` fails | Run `validate-package.mjs` and fix missing templates |
 | Published wrong files | Check `files` in `package.json`; re-publish with fixed version |
