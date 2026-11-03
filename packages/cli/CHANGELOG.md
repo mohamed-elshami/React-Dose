@@ -1,5 +1,10 @@
 # create-react-dose
 
+## 1.0.4
+
+- Fix Vite + TypeScript + ESLint install/build: pin TypeScript to `~5.9.0` when official templates ship TypeScript 6/7 (incompatible with `typescript-eslint@8`)
+- Remove TS 6-only `ignoreDeprecations` from Vite tsconfig templates / path-alias patch
+
 ## 1.0.3
 
 ### Patch Changes

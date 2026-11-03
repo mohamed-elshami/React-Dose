@@ -26,6 +26,50 @@ function repairNextOfficialVersions(pkg) {
   }
 }
 
+function stripIgnoreDeprecationsFromTsconfigs(targetDir) {
+  for (const fileName of ["tsconfig.app.json", "tsconfig.node.json", "tsconfig.json"]) {
+    const filePath = path.join(targetDir, fileName);
+    if (!fs.existsSync(filePath)) continue;
+
+    const raw = fs.readFileSync(filePath, "utf-8");
+    if (!raw.includes("ignoreDeprecations")) continue;
+
+    const stripped = raw
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/\/\/.*$/gm, "")
+      .replace(/,(\s*[}\]])/g, "$1");
+    const tsconfig = JSON.parse(stripped);
+
+    if (tsconfig.compilerOptions?.ignoreDeprecations) {
+      delete tsconfig.compilerOptions.ignoreDeprecations;
+      fs.writeFileSync(filePath, `${JSON.stringify(tsconfig, null, 2)}\n`, "utf-8");
+    }
+  }
+}
+
+/**
+ * Official Vite react-ts templates may ship TypeScript 7 while
+ * typescript-eslint@8 still peers typescript <6.1 — pin a compatible TS
+ * and drop TS 6+ only compiler flags.
+ */
+function repairViteTypescriptEslintCompat(pkg, project, targetDir) {
+  if (project.framework !== "react-core" || !project.typescript) {
+    return;
+  }
+
+  const hasTsEslint = Boolean(pkg.devDependencies?.["typescript-eslint"]);
+  const typescriptRange = pkg.devDependencies?.typescript;
+
+  if (!hasTsEslint || !typescriptRange) {
+    return;
+  }
+
+  if (/^[~^]?[67]\./.test(typescriptRange) || typescriptRange === "latest") {
+    pkg.devDependencies.typescript = "~5.9.0";
+    stripIgnoreDeprecationsFromTsconfigs(targetDir);
+  }
+}
+
 export async function injectEcosystemDependencies(project) {
   const s = p.spinner();
   const msg =
@@ -53,6 +97,7 @@ export async function injectEcosystemDependencies(project) {
 
     if (project.framework === "react-core") {
       frameworkDeps = await processViteEcosystem(project, targetDir, pkg);
+      repairViteTypescriptEslintCompat(pkg, project, targetDir);
     } else if (project.framework === "next-core") {
       frameworkDeps = await processNextEcosystem(project, targetDir, pkg);
       repairNextOfficialVersions(pkg);
